@@ -19,13 +19,12 @@
         .timer { font-size: 2rem; color: var(--gold); margin: 20px 0; }
         .letter-text { text-align: left; font-size: 0.95rem; line-height: 1.6; color: #fff; white-space: pre-line; border-left: 3px solid var(--main-blue); padding-left: 15px; margin-top: 15px; }
         
-        /* PROPOSE DAY ANIMATIONS */
+        /* ANIMATIONS */
         @keyframes slowShove { 0% { transform: translateX(0); } 100% { transform: translateX(800px) rotate(90deg); opacity: 0; } }
         .yeet { animation: slowShove 1.5s ease-out forwards; }
         .glowing-yes { transform: scale(1.6); background: #28a745 !important; box-shadow: 0 0 40px #28a745 !important; animation: pulse 1s infinite; }
         @keyframes pulse { 0% { transform: scale(1.6); } 50% { transform: scale(1.7); } 100% { transform: scale(1.6); } }
 
-        /* HUG/KISS EFFECTS */
         .heart { position: absolute; color: red; font-size: 30px; pointer-events: none; animation: heartFly 1s ease-out forwards; z-index: 1000; }
         @keyframes heartFly { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-200px) scale(2.5); opacity: 0; } }
         .hug-active { transform: scale(1.7); filter: drop-shadow(0 0 25px pink); }
@@ -116,18 +115,33 @@
                 <p>I know u love both roses and lillies. I wish I could come home and give them irl but boards and strict parents... I love u.</p>`;
             } 
             else if (dayNum === 8) {
-                content.innerHTML = `<h3>Propose Day 💍</h3><p>prettiest woman on earth is now mine. Thank you so much for travelling this journey brave soldier but we must warn u there's a lot more heart dwelling moments to be prepared for. <br><br> did I make u giggle a little bit princess? <br><br> Heheheheheheheh I love u so much jaanu be my bacha forever. I had so much fun coding this thinking about how happy you'll be, I'm not getting a ahead of myself I'm just hoping this brightened your day a little bit.</p>
-                <div id="btnContainer"><button id="noBtn">NO</button><button id="yesBtn" onclick="showDay(14)">YES</button></div>`;
-                document.getElementById('noBtn').onclick = function() {
-                    speak("Let me save u princess");
+                content.innerHTML = `<h3>Propose Day 💍</h3><p id="propText">Wait, Tejas has something to ask...</p>
+                <div id="btnContainer" class="hidden"><button id="noBtn">NO</button><button id="yesBtn">YES</button></div>`;
+                
+                setTimeout(() => {
+                    speak("i have a crush on u its very big like a dinosaur so will u be my valentine 🥺");
+                    document.getElementById('btnContainer').classList.remove('hidden');
+                }, 1000);
+
+                const handleChoice = (isYes) => {
+                    const noBtn = document.getElementById('noBtn');
+                    const yesBtn = document.getElementById('yesBtn');
+                    
+                    speak(isYes ? "Good choice but just incase 😉" : "trust me i saved u from a very bad choice 😉");
                     teddy.style.transform = "translateY(60px) rotate(-45deg) scale(1.5)";
-                    this.classList.add('yeet');
+                    noBtn.classList.add('yeet');
+                    
                     setTimeout(() => {
                         teddy.style.transform = "rotate(0deg) scale(1.1)";
-                        speak("Just in case... 😉");
-                        document.getElementById('yesBtn').classList.add('glowing-yes');
+                        yesBtn.classList.add('glowing-yes');
+                        yesBtn.onclick = () => {
+                            content.innerHTML = `<h3>Propose Day 💍</h3><p>prettiest woman on earth is now mine. Thank you so much for travelling this journey brave soldier but we must warn u there's a lot more heart dwelling moments to be prepared for. <br><br> did I make u giggle a little bit princess? <br><br> Heheheheheheheh I love u so much jaanu be my bacha forever. I had so much fun coding this thinking about how happy you'll be, I'm not getting a ahead of myself I'm just hoping this brightened your day a little bit.</p>`;
+                        };
                     }, 1000);
                 };
+
+                document.getElementById('noBtn').onclick = () => handleChoice(false);
+                document.getElementById('yesBtn').onclick = () => handleChoice(true);
             }
             else if (dayNum === 9) {
                 content.innerHTML = `<h3>Happppppyyyyyy Chocolateee Day Mlllllllll 🍫</h3>
@@ -179,6 +193,9 @@ future husband
                 setTimeout(() => h.remove(), 1000);
             }
         }
+    </script>
+</body>
+</html>
     </script>
 </body>
 </html>
