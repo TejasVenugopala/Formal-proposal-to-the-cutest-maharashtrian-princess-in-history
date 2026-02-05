@@ -39,40 +39,50 @@
         button {
             padding: 12px 25px; background: #0056b3; color: white;
             border: none; border-radius: 25px; cursor: pointer; margin: 15px 5px;
-            font-weight: bold;
+            font-weight: bold; transition: all 0.5s ease;
         }
 
-        /* The Knight - Brown Knight */
+        /* The Knight - Tiny Teddy Bear Tejas */
         #knight {
-            font-size: 40px; position: absolute; top: -150px; 
+            font-size: 45px; position: absolute; top: -150px; 
             left: 50%; transform: translateX(-50%);
             cursor: pointer; z-index: 100; line-height: 1;
         }
         #knight span {
             font-size: 8px; background: #0056b3; color: white;
             padding: 1px 4px; border-radius: 3px; display: block;
-            margin-bottom: 2px;
+            margin-bottom: 2px; text-transform: uppercase;
         }
 
-        /* In-screen Speech Bubble */
+        /* Speech Bubble */
         #speechBubble {
             position: absolute; top: 12%; left: 50%; transform: translateX(-50%);
             background: white; color: black; padding: 10px; border-radius: 10px;
             font-size: 14px; font-weight: bold; width: 160px; display: none;
-            z-index: 101; box-shadow: 0 0 10px rgba(255,255,255,0.3);
-        }
-        #speechBubble::after {
-            content: ''; position: absolute; bottom: -10px; left: 50%;
-            border-width: 10px 10px 0; border-style: solid; border-color: white transparent;
-            transform: translateX(-50%);
+            z-index: 101; box-shadow: 0 0 15px white;
         }
 
-        /* Animations */
-        @keyframes flyAway {
-            0% { transform: translate(0, 0) rotate(0deg); }
-            100% { transform: translate(600px, -600px) rotate(720deg); opacity: 0; }
+        /* SLOW KICK ANIMATION */
+        @keyframes slowKick {
+            0% { transform: scale(1) translateX(0); }
+            20% { transform: scale(1.1) translateX(-20px); } /* Wind up */
+            100% { transform: translateX(1000px) rotate(360deg); opacity: 0; }
         }
-        .yeet { animation: flyAway 0.8s forwards; }
+        .yeet { animation: slowKick 1.5s ease-in forwards; }
+
+        /* GLOWING YES BUTTON */
+        .glowing-yes {
+            transform: scale(1.5) !important;
+            background: #28a745 !important;
+            box-shadow: 0 0 30px #28a745, 0 0 60px #28a745 !important;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1.5); }
+            50% { transform: scale(1.6); }
+            100% { transform: scale(1.5); }
+        }
         
         .final-msg { font-size: 0.95rem; line-height: 1.6; color: #fff; text-align: left; }
     </style>
@@ -95,7 +105,6 @@
         <h1 style="font-size: 2rem;">🫸 &nbsp;&nbsp;&nbsp;&nbsp; 🫷</h1>
         <p>Big it's like a dinosaur. 🦖</p>
         <h3>Will u please be my valentine? 🥺</h3>
-        
         <div id="buttonArea">
             <button id="yesBtn" onclick="dropKnight()">YES</button>
             <button id="noBtn" onclick="dropKnight()">NO</button>
@@ -104,7 +113,7 @@
 
     <div id="knight" class="hidden" onclick="tejasAction()">
         <span>TEJAS</span>
-        🤎⚔️
+        🧸
     </div>
 
     <div id="screen3" class="container hidden" style="max-height: 85vh; overflow-y: auto;">
@@ -139,7 +148,7 @@
                 document.getElementById('screen1').classList.add('hidden');
                 document.getElementById('screen2').classList.remove('hidden');
             } else {
-                showBubble("Wrong info, princess!", 2000);
+                alert("Only the tall spooder-princess knows the truth!");
             }
         }
 
@@ -156,17 +165,20 @@
         function tejasAction() {
             const noBtn = document.getElementById('noBtn');
             const yesBtn = document.getElementById('yesBtn');
+            const knight = document.getElementById('knight');
             
-            showBubble("Let me save u princess", 2000);
+            showBubble("Let me save u princess", 1500);
             
             setTimeout(() => {
+                // The Kick
+                knight.style.transform = "translateX(-50%) rotate(-20deg) scale(1.2)";
                 noBtn.classList.add('yeet');
                 showBubble("Just incase... 😉", 2000);
             }, 1000);
 
             setTimeout(() => {
-                yesBtn.style.transform = "scale(1.2)";
-                yesBtn.style.background = "#28a745";
+                knight.style.top = '10%';
+                yesBtn.classList.add('glowing-yes');
                 yesBtn.onclick = () => {
                     document.getElementById('screen2').classList.add('hidden');
                     document.getElementById('knight').classList.add('hidden');
