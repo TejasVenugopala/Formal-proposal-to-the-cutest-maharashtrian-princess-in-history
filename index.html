@@ -25,62 +25,74 @@
             border: 2px solid #0056b3; 
             border-radius: 20px; 
             background: rgba(0, 10, 40, 0.8);
-            box-shadow: 0 0 20px rgba(0, 86, 179, 0.5);
-            max-height: 85vh;
-            overflow-y: auto;
+            position: relative;
+            z-index: 10;
         }
         .hidden { display: none; }
         
-        .decor { font-size: 2rem; margin: 10px; }
         input { 
             padding: 12px; border-radius: 10px; border: 2px solid #00f; 
-            background: #000; color: #fff; margin-top: 5px; width: 85%;
-            text-align: center; font-size: 1rem;
+            background: #000; color: #fff; margin-top: 10px; width: 85%;
+            text-align: center;
         }
 
         button {
             padding: 12px 25px; background: #0056b3; color: white;
             border: none; border-radius: 25px; cursor: pointer; margin: 15px 5px;
-            font-weight: bold; font-size: 1rem;
+            font-weight: bold;
         }
 
+        /* The Knight - Brown Knight */
         #knight {
-            font-size: 60px; position: absolute; top: -150px; 
+            font-size: 40px; position: absolute; top: -150px; 
             left: 50%; transform: translateX(-50%);
-            cursor: pointer; z-index: 100;
-            line-height: 1;
+            cursor: pointer; z-index: 100; line-height: 1;
+        }
+        #knight span {
+            font-size: 8px; background: #0056b3; color: white;
+            padding: 1px 4px; border-radius: 3px; display: block;
+            margin-bottom: 2px;
         }
 
+        /* In-screen Speech Bubble */
+        #speechBubble {
+            position: absolute; top: 12%; left: 50%; transform: translateX(-50%);
+            background: white; color: black; padding: 10px; border-radius: 10px;
+            font-size: 14px; font-weight: bold; width: 160px; display: none;
+            z-index: 101; box-shadow: 0 0 10px rgba(255,255,255,0.3);
+        }
+        #speechBubble::after {
+            content: ''; position: absolute; bottom: -10px; left: 50%;
+            border-width: 10px 10px 0; border-style: solid; border-color: white transparent;
+            transform: translateX(-50%);
+        }
+
+        /* Animations */
         @keyframes flyAway {
             0% { transform: translate(0, 0) rotate(0deg); }
             100% { transform: translate(600px, -600px) rotate(720deg); opacity: 0; }
         }
         .yeet { animation: flyAway 0.8s forwards; }
         
-        .final-msg { font-size: 0.95rem; line-height: 1.6; color: #fff; margin-top: 15px; text-align: left; }
-        label { display: block; margin-top: 15px; font-size: 0.85rem; color: #fff; }
+        .final-msg { font-size: 0.95rem; line-height: 1.6; color: #fff; text-align: left; }
     </style>
 </head>
 <body>
 
     <div id="screen1" class="container">
-        <div class="decor">🦮 🐈‍⬛</div>
-        <h2 style="color: #fff;">If u are pasandida aurat u must know...</h2>
-        
-        <label>What is your height? (mine is 6'0)</label>
+        <h2>If u are pasandida aurat u must know...</h2>
+        <p>What is your height? (mine is 6'0)</p>
         <input type="text" id="pwHeight" placeholder="e.g. 5'something">
-        
-        <label>What super hero are u? (Correct spelling only)</label>
+        <p>What super hero are u?</p>
         <input type="text" id="pwHero" placeholder="Who are you?">
-        
         <br>
         <button onclick="checkAnswers()">Verify Identity</button>
     </div>
 
     <div id="screen2" class="container hidden">
-        <div class="decor">🐕‍🦺 🐈</div>
+        <div id="speechBubble"></div>
         <p>I have a very big crush on u like it's</p>
-        <h1 style="font-size: 2.2rem; letter-spacing: 5px;">🫸 &nbsp;&nbsp;&nbsp;&nbsp; 🫷</h1>
+        <h1 style="font-size: 2rem;">🫸 &nbsp;&nbsp;&nbsp;&nbsp; 🫷</h1>
         <p>Big it's like a dinosaur. 🦖</p>
         <h3>Will u please be my valentine? 🥺</h3>
         
@@ -90,34 +102,44 @@
         </div>
     </div>
 
-    <div id="knight" class="hidden" onclick="tejasAction()">🛡️⚔️<br><span style="font-size: 14px; background: #00f; color: white; padding: 2px 5px; border-radius: 5px;">TEJAS</span></div>
+    <div id="knight" class="hidden" onclick="tejasAction()">
+        <span>TEJAS</span>
+        🤎⚔️
+    </div>
 
-    <div id="screen3" class="container hidden">
-        <div class="decor">👑 🐈 🦮 👑</div>
-        <h1 style="color: gold; font-size: 1.4rem;">MISSION ACCOMPLISHED BRAVE SOLDIER!</h1>
-        <p style="font-size: 1.1rem; color: #add8e6;">The prettiest woman on earth is now yours!</p>
-        <hr style="border: 0.5px solid #0056b3; margin: 15px 0;">
-        
+    <div id="screen3" class="container hidden" style="max-height: 85vh; overflow-y: auto;">
+        <h1 style="color: gold; font-size: 1.3rem;">MISSION ACCOMPLISHED BRAVE SOLDIER!</h1>
+        <p>The prettiest woman on earth is now yours!</p>
+        <hr border="1" color="#0056b3">
         <div class="final-msg">
             <p style="text-align: center;">Did I make u giggle a little bit princess? 😉</p>
             <p>Heheheheheheheh I love u so much jaanu be my bacha forever. I had so much fun coding this thinking about how happy you'll be, I'm not getting a ahead of myself I'm just hoping this brightend your day a little bit.</p>
-            <p>YOU'RE MY ONE AND ONLY BABY PLEASE TELL ME IF U EVER FEEL JEALOUS OR NEED REASSURANCE. Mi tujha ahe ani phakta tujhaca ahe. Sarvasvi tu. Kayamaca majha raha ani mi vacana deto ki tu kayamaca tujha rahasila.</p>
-            <p style="font-size: 1.5rem; text-align: center;">💙🖤💙</p>
+            <p>YOU'RE MY ONE AND ONLY BABY PLEASE TELL ME IF U EVER FEEL JEALOUS OR NEED REASSURANCE.</p>
+            <p>Mi tujha ahe ani phakta tujhaca ahe. Sarvasvi tu. Kayamaca majha raha ani mi vacana deto ki tu kayamaca tujha rahasila.</p>
+            <p>Ata ya pudhe mi jya dolyancya premat paden te phakta aplya mulice astil. Ani mi mazyatli sagli shakti lavun he khatri karen ki dusrya kontyahi manusala ashi mulagi honar nahi jiche dole agadi tasyach asatil jyanvar mi prem kelay.</p>
+            <p style="text-align: center; font-size: 1.5rem;">💙🖤💙</p>
         </div>
     </div>
 
     <script>
-        function checkAnswers() {
-            const height = document.getElementById('pwHeight').value.trim();
-            const hero = document.getElementById('pwHero').value.trim().toLowerCase();
+        const bubble = document.getElementById('speechBubble');
 
-            if(height === "8'15" && hero === "spooderman") {
+        function showBubble(text, duration) {
+            bubble.innerText = text;
+            bubble.style.display = 'block';
+            if(duration) {
+                setTimeout(() => { bubble.style.display = 'none'; }, duration);
+            }
+        }
+
+        function checkAnswers() {
+            const h = document.getElementById('pwHeight').value.trim();
+            const hero = document.getElementById('pwHero').value.trim().toLowerCase();
+            if(h === "8'15" && hero === "spooderman") {
                 document.getElementById('screen1').classList.add('hidden');
                 document.getElementById('screen2').classList.remove('hidden');
-            } else if (height !== "8'15") {
-                alert("Wrong height! You aren't that tall yet.");
             } else {
-                alert("Wrong hero! Spelling matters, princess.");
+                showBubble("Wrong info, princess!", 2000);
             }
         }
 
@@ -125,39 +147,32 @@
             const knight = document.getElementById('knight');
             knight.classList.remove('hidden');
             setTimeout(() => {
-                knight.style.top = '20%';
+                knight.style.top = '25%';
                 knight.style.transition = 'top 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                showBubble("Click on me if u think I'm cute", 3000);
             }, 50);
-            alert("Click on me if u think I'm cute");
         }
 
         function tejasAction() {
-            const knight = document.getElementById('knight');
             const noBtn = document.getElementById('noBtn');
             const yesBtn = document.getElementById('yesBtn');
             
-            alert("Let me save u princess");
+            showBubble("Let me save u princess", 2000);
             
             setTimeout(() => {
-                knight.innerHTML = "🤜🛡️<br>HIYAA!";
                 noBtn.classList.add('yeet');
-            }, 500);
+                showBubble("Just incase... 😉", 2000);
+            }, 1000);
 
             setTimeout(() => {
-                alert("Just incase... 😉");
-                knight.style.top = '5%'; 
-                knight.innerHTML = "🛡️✨<br>Only YES allowed.";
-                
-                yesBtn.style.transform = "scale(1.3)";
-                yesBtn.style.background = "#28a745"; 
-                yesBtn.onclick = missionAccomplished;
-            }, 1500);
-        }
-
-        function missionAccomplished() {
-            document.getElementById('screen2').classList.add('hidden');
-            document.getElementById('knight').classList.add('hidden');
-            document.getElementById('screen3').classList.remove('hidden');
+                yesBtn.style.transform = "scale(1.2)";
+                yesBtn.style.background = "#28a745";
+                yesBtn.onclick = () => {
+                    document.getElementById('screen2').classList.add('hidden');
+                    document.getElementById('knight').classList.add('hidden');
+                    document.getElementById('screen3').classList.remove('hidden');
+                };
+            }, 2500);
         }
     </script>
 </body>
