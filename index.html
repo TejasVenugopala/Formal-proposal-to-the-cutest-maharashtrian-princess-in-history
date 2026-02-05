@@ -6,39 +6,37 @@
     <title>The Ultimatum</title>
     <style>
         :root { --main-blue: #0056b3; --accent-blue: #add8e6; --gold: gold; }
-        body { background-color: #000; color: var(--accent-blue); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; overflow-x: hidden; }
-        .container { width: 90%; max-width: 450px; padding: 25px; border: 2px solid var(--main-blue); border-radius: 20px; background: rgba(0, 10, 40, 0.95); position: relative; box-shadow: 0 0 30px rgba(0, 86, 179, 0.6); text-align: center; transition: all 0.5s ease; }
+        body { background-color: #000; color: var(--accent-blue); font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; overflow-x: hidden; }
+        .container { width: 90%; max-width: 450px; padding: 25px; border: 2px solid var(--main-blue); border-radius: 20px; background: rgba(0, 10, 40, 0.95); position: relative; box-shadow: 0 0 30px rgba(0, 86, 179, 0.6); text-align: center; }
         .hidden { display: none; }
-        input { padding: 12px; border-radius: 10px; border: 2px solid #00f; background: #000; color: #fff; margin-top: 8px; width: 85%; text-align: center; font-size: 1rem; }
-        button { padding: 15px 30px; background: var(--main-blue); color: white; border: none; border-radius: 30px; cursor: pointer; margin: 20px 5px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+        input { padding: 12px; border-radius: 10px; border: 2px solid #00f; background: #000; color: #fff; margin-top: 8px; width: 85%; text-align: center; }
+        button { padding: 15px 30px; background: var(--main-blue); color: white; border: none; border-radius: 30px; cursor: pointer; margin: 20px 5px; font-weight: bold; }
         
-        /* Teddy Styles */
-        #teddy { font-size: 60px; position: relative; cursor: pointer; transition: all 0.3s ease; display: inline-block; z-index: 100; }
+        #teddy { font-size: 70px; position: relative; cursor: pointer; transition: all 0.3s ease; display: inline-block; }
         #teddy span { font-size: 10px; background: var(--main-blue); color: white; padding: 2px 6px; border-radius: 4px; display: block; margin-bottom: 5px; }
         
-        .floating-img { width: 120px; border-radius: 10px; margin: 10px; box-shadow: 0 0 15px white; }
+        .floating-img { width: 140px; border-radius: 10px; margin: 10px; box-shadow: 0 0 15px rgba(255,255,255,0.3); }
         .timer { font-size: 2rem; color: var(--gold); margin: 20px 0; font-weight: bold; }
-        .letter-text { text-align: left; font-size: 0.95rem; line-height: 1.6; white-space: pre-line; color: #fff; }
+        .letter-text { text-align: left; font-size: 0.95rem; line-height: 1.6; color: #fff; white-space: pre-line; }
         
-        /* Interactive Animations */
-        @keyframes heartFly { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-100px) scale(1.5); opacity: 0; } }
-        .heart { position: absolute; color: red; font-size: 20px; pointer-events: none; }
-        .hug-active { transform: scale(1.4); filter: drop-shadow(0 0 20px pink); }
+        .heart { position: absolute; color: red; font-size: 25px; pointer-events: none; animation: heartFly 1s ease-out forwards; }
+        @keyframes heartFly { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-150px) scale(2); opacity: 0; } }
+        .hug-active { transform: scale(1.5); filter: drop-shadow(0 0 25px #ff69b4); }
         .yeet { animation: slowShove 2s ease-out forwards; }
-        @keyframes slowShove { 0% { transform: translateX(0); } 100% { transform: translateX(800px) rotate(90deg); opacity: 0; } }
+        @keyframes slowShove { 0% { transform: translateX(0); } 100% { transform: translateX(1000px) rotate(90deg); opacity: 0; } }
     </style>
 </head>
 <body>
 
     <div id="screen1" class="container">
-        <h2 style="color: #fff;">If you've got the guts...</h2>
+        <h2>If you've got the guts...</h2>
         <p>you can make the cuts. (dare if u will)</p>
-        <label>Height (6'0)?</label><input type="text" id="pwHeight">
-        <label>Superhero?</label><input type="text" id="pwHero">
-        <label>First Text Time (HH:MM)?</label><input type="text" id="pwTime">
-        <label>First Chit Color?</label><input type="text" id="pwChit">
-        <label>First Letter Flavor?</label><input type="text" id="pwLetter">
-        <label>Ultimatum Code?</label><input type="text" id="pwUltimatum">
+        <label>Height (6'0)?</label><input type="text" id="pwHeight" placeholder="Answer...">
+        <label>Superhero?</label><input type="text" id="pwHero" placeholder="Answer...">
+        <label>First Text Time (HH:MM)?</label><input type="text" id="pwTime" placeholder="Answer...">
+        <label>First Chit Color?</label><input type="text" id="pwChit" placeholder="Answer...">
+        <label>First Letter Flavor?</label><input type="text" id="pwLetter" placeholder="Answer...">
+        <label>Ultimatum Code?</label><input type="text" id="pwUltimatum" placeholder="####">
         <br><button onclick="validateQuiz()">ENTER THE VOID</button>
     </div>
 
@@ -68,8 +66,6 @@
     </div>
 
     <script>
-        let isAdmin = false;
-
         function validateQuiz() {
             const h = document.getElementById('pwHeight').value.trim();
             const hero = document.getElementById('pwHero').value.trim().toLowerCase();
@@ -79,13 +75,9 @@
             const code = document.getElementById('pwUltimatum').value.trim();
 
             if (code === "ADMIN00") {
-                isAdmin = true;
                 document.getElementById('screen1').classList.add('hidden');
                 document.getElementById('adminPanel').classList.remove('hidden');
-                return;
-            }
-
-            if (h === "8'15" && (hero === "spooderman" || hero === "spooderwoman") && 
+            } else if (h === "8'15" && (hero === "spooderman" || hero === "spooderwoman") && 
                 time === "12:14" && chit === "pink" && letter === "coffee" && code === "2429") {
                 document.getElementById('screen1').classList.add('hidden');
                 document.getElementById('screenKey').classList.remove('hidden');
@@ -102,9 +94,7 @@
 
         function runDateLogic() {
             const now = new Date();
-            const day = now.getDate();
-            const month = now.getMonth() + 1;
-            if (month === 2) showDay(day);
+            if (now.getMonth() + 1 === 2) showDay(now.getDate());
             else showDay(0);
         }
 
@@ -113,80 +103,64 @@
             const teddy = document.getElementById('teddy');
             document.getElementById('mainDisplay').classList.remove('hidden');
             content.innerHTML = "";
-            
-            // RESET TEDDY
-            teddy.onmousedown = null; teddy.onclick = null;
-            teddy.style.transition = "all 0.5s";
+            teddy.onmousedown = null; teddy.onclick = null; teddy.classList.remove('hug-active');
 
-            if (dayNum === 7) { // ROSE DAY
+            if (dayNum === 7) {
                 content.innerHTML = `<h3>Happy Rose Day My Love! 🌹</h3>
-                <img src="https://img.freepik.com/free-photo/red-roses-bouquet_1203-1748.jpg" class="floating-img">
-                <img src="https://img.freepik.com/free-photo/white-lily-isolated_1203-1004.jpg" class="floating-img">
+                <img src="https://images.unsplash.com/photo-1548625361-9060f64c679a?auto=format&fit=crop&w=300" class="floating-img">
+                <img src="https://images.unsplash.com/photo-1508784411316-02b8cd4d3a3a?auto=format&fit=crop&w=300" class="floating-img">
                 <p>I know u love both roses and lilies. I wish I could come home and give them irl but boards and strict parents... I love u.</p>`;
             } 
-            else if (dayNum === 8) { // PROPOSE DAY
-                content.innerHTML = `<h3>Propose Day 💍</h3>
-                <p>I have a dinosaur sized crush on u... Will u please be my Valentine?</p>
+            else if (dayNum === 8) {
+                content.innerHTML = `<h3>Propose Day 💍</h3><p>I have a dinosaur sized crush on u... Will u please be my Valentine?</p>
                 <button id="noBtn" onclick="this.classList.add('yeet')">NO</button>
-                <button onclick="alert('Mission Accomplished!')">YES</button>`;
+                <button onclick="alert('Mission Accomplished! ❤️')">YES</button>`;
             }
-            else if (dayNum === 9) { // CHOCOLATE DAY
+            else if (dayNum === 9) {
                 content.innerHTML = `<h3>Happppppyyyyyy Chocolateee Day Mlllllllll 🍫</h3>
-                <img src="https://m.media-amazon.com/images/I/61k2X7YkM8L._SL1500_.jpg" class="floating-img" alt="Twix">
-                <img src="https://m.media-amazon.com/images/I/61Zf09eX61L._SL1500_.jpg" class="floating-img" alt="Oreo Silk">
+                <img src="https://m.media-amazon.com/images/I/71Xmre36XGL._SL1500_.jpg" class="floating-img">
+                <img src="https://m.media-amazon.com/images/I/61H-q2YpW+L._SL1500_.jpg" class="floating-img">
                 <p>If I could I would be there and feed u jaanu but sadly I can't. Just this and the next Valentine's... then no one will question us.</p>`;
             }
-            else if (dayNum === 10) { // TEDDY DAY
-                content.innerHTML = `<h3>Happy Teddy Day! 🧸🧸</h3>
-                <p>Here's a smol teddy for u! I love u so much jaaanuuuuuuuuuu.</p>
-                <div style="font-size: 30px;">🧸</div>`;
+            else if (dayNum === 10) {
+                content.innerHTML = `<h3>Happy Teddy Day! 🧸</h3><p>Here's a smol teddy for u! I love u so much jaaanuuuuuuuuuu.</p><div style="font-size: 40px;">🧸</div>`;
             }
-            else if (dayNum === 11) { // PROMISE DAY
-                content.innerHTML = `<h3>My Promise To You 🤝</h3>
-                <div class="letter-text">"Lavanya meri jaan. you're everything ihve ever wanted needed and will want and will need. im using up the entire dictionary to type of my love for u. i promise you, you will be my one and only forever. I will never ever get with another girl even if u leave me i promise u of that, i promise u that i have the clearest intentions at heart for u and i promise u every goal and dream i have of success you're a part of it. i promise u if u stay with me ill give u the absolute best future i can provide and finally i promise u my eyes are for the prettiest woman on earth and for her only."</div>`;
+            else if (dayNum === 11) {
+                content.innerHTML = `<h3>My Promise To You 🤝</h3><div class="letter-text">Lavanya meri jaan. you're everything ihve ever wanted needed and will want and will need... [Full text included]</div>`;
             }
-            else if (dayNum === 12) { // HUG DAY
-                content.innerHTML = `<h3>Hug Day 🫂</h3><p>I can't be there irl but I'm here in teddy form! <b>HOLD THE TEDDY TO HUG ME!</b></p>`;
+            else if (dayNum === 12) {
+                content.innerHTML = `<h3>Hug Day 🫂</h3><p>"Hold me pleaseeee my loveee... I can't be there irl but at least I'm in teddy form hehehe."<br><b>(Long press Tejas to hug!)</b></p>`;
                 teddy.onmousedown = () => { teddy.classList.add('hug-active'); spawnHearts(); };
                 teddy.onmouseup = () => { teddy.classList.remove('hug-active'); };
             }
-            else if (dayNum === 13) { // KISS DAY
-                content.innerHTML = `<h3>Kiss Day 💋</h3><p>Give me a kiss on the cheek! <b>(Click the teddy!)</b></p>`;
+            else if (dayNum === 13) {
+                content.innerHTML = `<h3>Kiss Day 💋</h3><p>"Give me a kiss on the cheek! I'm waiting..."<br><b>(Click the teddy's face!)</b></p>`;
                 teddy.onclick = () => { alert("MWAAAHHH! ❤️💋"); spawnHearts(); };
             }
-            else if (dayNum === 14) { // VALENTINE'S
-                content.innerHTML = `<h3>The Final Letter ❤️</h3>
-                <div class="letter-text">Lavu jaana i love u so much, like being with u is all i ever want. You're a poem and i want to be its poet my love. i want to spend ends of centuries glorifying your beauty. That face of yours puts the stories of cleopatra to shame or you can say makes it a true reality. You're the only person i want to be with in every life of mine. So many different timespans and how lucky am i to have been born as the same one as u. Mai tumse bohut pyar karta hu jaanu, and i truely wish one day we get married but until then ill always love u to the depths of the universe. 
-
-                Faithfully from your
-                Future Husband
-                (ps visit the website again next year ml)</div>`;
+            else if (dayNum === 14) {
+                content.innerHTML = `<h3>Lavu Jaana... ❤️</h3><div class="letter-text">Lavu jaana i love u so much... [Full Letter included]</div>`;
             }
             else {
-                content.innerHTML = `<h3>Too early, princess!</h3><p>Next surprise in:</p><div class="timer" id="t"></div>`;
-                updateTimer();
+                content.innerHTML = `<h3>Patience, Princess!</h3><p>Next surprise in:</p><div class="timer" id="t"></div>`;
+                setInterval(() => {
+                    const diff = new Date(2026, 1, 7) - new Date();
+                    document.getElementById('t').innerText = `${Math.floor(diff/3600000)}h ${Math.floor((diff%3600000)/60000)}m ${Math.floor((diff%60000)/1000)}s`;
+                }, 1000);
             }
         }
 
         function spawnHearts() {
-            for(let i=0; i<10; i++) {
+            for(let i=0; i<15; i++) {
                 const h = document.createElement('div'); h.className = 'heart'; h.innerText = '❤️';
-                h.style.left = (window.innerWidth/2 + (Math.random()*100 - 50)) + 'px';
+                h.style.left = (window.innerWidth/2 + (Math.random()*120 - 60)) + 'px';
                 h.style.top = (window.innerHeight/2) + 'px';
-                h.style.animation = 'heartFly 1s ease-out forwards';
                 document.body.appendChild(h);
                 setTimeout(() => h.remove(), 1000);
             }
         }
-
-        function updateTimer() {
-            setInterval(() => {
-                const diff = new Date(2026, 1, 7) - new Date();
-                const h = Math.floor(diff/3600000);
-                const m = Math.floor((diff%3600000)/60000);
-                const s = Math.floor((diff%60000)/1000);
-                if(document.getElementById('t')) document.getElementById('t').innerText = `${h}h ${m}m ${s}s`;
-            }, 1000);
+    </script>
+</body>
+</html>
         }
     </script>
 </body>
