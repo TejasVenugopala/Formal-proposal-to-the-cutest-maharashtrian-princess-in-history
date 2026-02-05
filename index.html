@@ -1,11 +1,9 @@
-If you've got the gut then u can make the cut
-dare if u will
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Pasandida Aurat</title>
+    <title>The Ultimatum</title>
     <style>
         body {
             background-color: #000;
@@ -82,13 +80,15 @@ dare if u will
         @keyframes pulse { 0% { transform: scale(1.5); } 50% { transform: scale(1.6); } 100% { transform: scale(1.5); } }
         
         .final-msg { font-size: 0.85rem; line-height: 1.5; color: #fff; text-align: left; }
-        label { font-size: 0.7rem; color: #fff; display: block; margin-top: 8px; font-weight: bold; }
+        label { font-size: 0.75rem; color: #fff; display: block; margin-top: 8px; font-weight: bold; }
     </style>
 </head>
 <body>
 
     <div id="screen1" class="container">
-        <h2 style="font-size: 1.1rem; color: #fff;">Only for my Pasandida Aurat...</h2>
+        <h2 style="font-size: 1.2rem; color: #fff; margin-bottom: 5px;">If you've got the guts...</h2>
+        <h3 style="font-size: 1rem; color: #add8e6; margin-top: 0;">you can make the cuts.</h3>
+        <p style="font-size: 0.8rem; font-style: italic;">dare if u will</p>
         
         <label>What is your height? (mine is 6'0)</label>
         <input type="text" id="pwHeight" placeholder="Answer...">
@@ -97,7 +97,7 @@ dare if u will
         <input type="text" id="pwHero" placeholder="Answer...">
         
         <label>First time we texted? (HH:MM)</label>
-        <input type="text" id="pwTime" placeholder="12:14">
+        <input type="text" id="pwTime" placeholder="Answer...">
         
         <label>Colour of the first chit u gave me?</label>
         <input type="text" id="pwChit" placeholder="Answer...">
@@ -161,11 +161,13 @@ dare if u will
             const letter = document.getElementById('pwLetter').value.trim().toLowerCase();
             const ultimatum = document.getElementById('pwUltimatum').value.trim();
 
-            if(h === "8'15" && hero === "spooderman" && time === "12:14" && chit === "pink" && letter === "coffee" && ultimatum === "2429") {
+            const isHeroCorrect = (hero === "spooderman" || hero === "spooderwoman");
+
+            if(h === "8'15" && isHeroCorrect && time === "12:14" && chit === "pink" && letter === "coffee" && ultimatum === "2429") {
                 document.getElementById('screen1').classList.add('hidden');
                 document.getElementById('screen2').classList.remove('hidden');
             } else {
-                alert("Incorrect. Access denied by Spooderman.");
+                alert("Only the real princess makes the cut.");
             }
         }
 
@@ -202,6 +204,9 @@ dare if u will
                 };
             }, 3000);
         }
+    </script>
+</body>
+</html>
     </script>
 </body>
 </html>
