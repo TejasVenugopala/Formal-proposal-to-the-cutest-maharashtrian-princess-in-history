@@ -15,11 +15,12 @@
         #teddy { font-size: 70px; position: relative; cursor: pointer; transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: inline-block; z-index: 100; }
         #teddy span { font-size: 10px; background: var(--main-blue); color: white; padding: 2px 6px; border-radius: 4px; display: block; margin-bottom: 5px; }
         
-        .floating-img { width: 160px; height: 160px; object-fit: cover; border-radius: 15px; margin: 10px; border: 3px solid white; }
+        .big-emoji { font-size: 80px; margin: 20px 0; display: block; }
+        .choco-label { background: rgba(255,255,255,0.1); padding: 10px; border-radius: 10px; margin: 10px; display: inline-block; border: 1px solid var(--accent-blue); }
+        
         .timer { font-size: 2rem; color: var(--gold); margin: 20px 0; }
         .letter-text { text-align: left; font-size: 0.95rem; line-height: 1.6; color: #fff; white-space: pre-line; border-left: 3px solid var(--main-blue); padding-left: 15px; margin-top: 15px; }
         
-        /* ANIMATIONS */
         @keyframes slowShove { 0% { transform: translateX(0); } 100% { transform: translateX(800px) rotate(90deg); opacity: 0; } }
         .yeet { animation: slowShove 1.5s ease-out forwards; }
         .glowing-yes { transform: scale(1.6); background: #28a745 !important; box-shadow: 0 0 40px #28a745 !important; animation: pulse 1s infinite; }
@@ -40,7 +41,7 @@
         <input type="text" id="pwHeight" placeholder="Height (mine is 6'0)">
         <input type="text" id="pwHero" placeholder="What super hero are u?">
         <input type="text" id="pwTime" placeholder="First time we texted (HH:MM)">
-        <input type="text" id="pwChit" placeholder="Colour of first chit?">
+        <input type="text" id="pwChit" placeholder="Colour of first xhit?">
         <input type="text" id="pwLetter" placeholder="Flavour of first love letter?">
         <input type="text" id="pwUltimatum" placeholder="Ultimatum Code">
         <br><button onclick="validateQuiz()">ENTER THE VOID</button>
@@ -110,8 +111,7 @@
 
             if (dayNum === 7) {
                 content.innerHTML = `<h3>Happy Rose Day My Love! 🌹</h3>
-                <img src="https://m.media-amazon.com/images/I/71Y7XmU5jGL.jpg" class="floating-img">
-                <img src="https://m.media-amazon.com/images/I/61Nf6+z-f7L.jpg" class="floating-img">
+                <span class="big-emoji">🌹🌷</span>
                 <p>I know u love both roses and lillies. I wish I could come home and give them irl but boards and strict parents... I love u.</p>`;
             } 
             else if (dayNum === 8) {
@@ -126,11 +126,9 @@
                 const handleChoice = (isYes) => {
                     const noBtn = document.getElementById('noBtn');
                     const yesBtn = document.getElementById('yesBtn');
-                    
                     speak(isYes ? "Good choice but just incase 😉" : "trust me i saved u from a very bad choice 😉");
                     teddy.style.transform = "translateY(60px) rotate(-45deg) scale(1.5)";
                     noBtn.classList.add('yeet');
-                    
                     setTimeout(() => {
                         teddy.style.transform = "rotate(0deg) scale(1.1)";
                         yesBtn.classList.add('glowing-yes');
@@ -139,14 +137,14 @@
                         };
                     }, 1000);
                 };
-
                 document.getElementById('noBtn').onclick = () => handleChoice(false);
                 document.getElementById('yesBtn').onclick = () => handleChoice(true);
             }
             else if (dayNum === 9) {
                 content.innerHTML = `<h3>Happppppyyyyyy Chocolateee Day Mlllllllll 🍫</h3>
-                <img src="https://m.media-amazon.com/images/I/61H-q2YpW+L._SL1500_.jpg" class="floating-img">
-                <img src="https://m.media-amazon.com/images/I/61Zf09eX61L._SL1500_.jpg" class="floating-img">
+                <span class="big-emoji">🍫✨🍫</span>
+                <div class="choco-label">Oreo Silk</div>
+                <div class="choco-label">Twix</div>
                 <p>If I could I would be there and feed u jaanu but sadly I can't. Just this and the next Valentine's... then no one will question us.</p>`;
             }
             else if (dayNum === 10) {
@@ -193,9 +191,6 @@ future husband
                 setTimeout(() => h.remove(), 1000);
             }
         }
-    </script>
-</body>
-</html>
     </script>
 </body>
 </html>
