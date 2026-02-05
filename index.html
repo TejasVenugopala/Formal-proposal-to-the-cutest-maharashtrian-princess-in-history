@@ -1,3 +1,7 @@
+Got it, Tejas. I’ve updated the logic so 2429 is the secret "Ultimatum Code" required to enter. I’ve also kept all your other specific memories (Spooderman, pink chit, coffee letter, 12:14 text) and ensured that 🧸 Tejas is ready for the slow-motion drop kick.
+
+The Finalized Ultimatum Code
+HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,19 +25,22 @@
         .container { 
             width: 85%; 
             max-width: 400px; 
-            padding: 25px; 
+            padding: 20px; 
             border: 2px solid #0056b3; 
             border-radius: 20px; 
-            background: rgba(0, 10, 40, 0.8);
+            background: rgba(0, 10, 40, 0.9);
             position: relative;
             z-index: 10;
+            box-shadow: 0 0 20px rgba(0, 86, 179, 0.5);
+            max-height: 90vh;
+            overflow-y: auto;
         }
         .hidden { display: none; }
         
         input { 
-            padding: 12px; border-radius: 10px; border: 2px solid #00f; 
-            background: #000; color: #fff; margin-top: 10px; width: 85%;
-            text-align: center;
+            padding: 8px; border-radius: 10px; border: 2px solid #00f; 
+            background: #000; color: #fff; margin-top: 5px; width: 85%;
+            text-align: center; font-size: 0.85rem;
         }
 
         button {
@@ -42,7 +49,6 @@
             font-weight: bold; transition: all 0.5s ease;
         }
 
-        /* The Teddy - Tejas */
         #teddy {
             font-size: 50px; position: absolute; top: -150px; 
             left: 50%; transform: translateX(-50%);
@@ -50,45 +56,60 @@
             transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         #teddy span {
-            font-size: 8px; background: #0056b3; color: white;
+            font-size: 9px; background: #0056b3; color: white;
             padding: 2px 5px; border-radius: 3px; display: block;
-            margin-bottom: 4px; text-transform: uppercase;
+            margin-bottom: 4px;
         }
 
-        /* Speech Bubble */
         #speechBubble {
-            position: absolute; top: 12%; left: 50%; transform: translateX(-50%);
+            position: absolute; top: 10%; left: 50%; transform: translateX(-50%);
             background: white; color: black; padding: 10px; border-radius: 10px;
             font-size: 14px; font-weight: bold; width: 160px; display: none;
             z-index: 101; box-shadow: 0 0 15px white;
         }
 
-        /* SLOW DROP KICK ANIMATION */
         @keyframes slowShove {
             0% { transform: translateX(0); }
-            30% { transform: translateX(-15px) scale(1.1); } /* Impact reaction */
-            100% { transform: translateX(800px) rotate(180deg); opacity: 0; }
+            20% { transform: translateX(-20px) scale(1.1); }
+            100% { transform: translateX(1000px) rotate(90deg); opacity: 0; }
         }
         .yeet { animation: slowShove 2s ease-out forwards; }
 
-        /* GLOWING YES BUTTON */
         .glowing-yes {
             transform: scale(1.5) !important;
             background: #28a745 !important;
             box-shadow: 0 0 30px #28a745, 0 0 60px #28a745 !important;
+            animation: pulse 1.5s infinite;
         }
+        @keyframes pulse { 0% { transform: scale(1.5); } 50% { transform: scale(1.6); } 100% { transform: scale(1.5); } }
         
-        .final-msg { font-size: 0.95rem; line-height: 1.6; color: #fff; text-align: left; }
+        .final-msg { font-size: 0.85rem; line-height: 1.5; color: #fff; text-align: left; }
+        label { font-size: 0.7rem; color: #fff; display: block; margin-top: 8px; font-weight: bold; }
     </style>
 </head>
 <body>
 
     <div id="screen1" class="container">
-        <h2>If u are pasandida aurat u must know...</h2>
-        <p>What is your height? (mine is 6'0)</p>
-        <input type="text" id="pwHeight" placeholder="e.g. 5'something">
-        <p>What super hero are u?</p>
-        <input type="text" id="pwHero" placeholder="Who are you?">
+        <h2 style="font-size: 1.1rem; color: #fff;">Only for my Pasandida Aurat...</h2>
+        
+        <label>What is your height? (mine is 6'0)</label>
+        <input type="text" id="pwHeight" placeholder="Answer...">
+        
+        <label>What super hero are u?</label>
+        <input type="text" id="pwHero" placeholder="Answer...">
+        
+        <label>First time we texted? (HH:MM)</label>
+        <input type="text" id="pwTime" placeholder="12:14">
+        
+        <label>Colour of the first chit u gave me?</label>
+        <input type="text" id="pwChit" placeholder="Answer...">
+        
+        <label>Flavour of first love letter I gave u?</label>
+        <input type="text" id="pwLetter" placeholder="Answer...">
+
+        <label>Enter the Ultimatum Code:</label>
+        <input type="text" id="pwUltimatum" placeholder="####">
+        
         <br>
         <button onclick="checkAnswers()">Verify Identity</button>
     </div>
@@ -111,8 +132,7 @@
     </div>
 
     <div id="screen3" class="container hidden" style="max-height: 85vh; overflow-y: auto;">
-        <h1 style="color: gold; font-size: 1.3rem;">MISSION ACCOMPLISHED BRAVE SOLDIER!</h1>
-        <p>The prettiest woman on earth is now yours!</p>
+        <h1 style="color: gold; font-size: 1.1rem;">MISSION ACCOMPLISHED BRAVE SOLDIER!</h1>
         <hr border="1" color="#0056b3">
         <div class="final-msg">
             <p style="text-align: center;">Did I make u giggle a little bit princess? 😉</p>
@@ -138,11 +158,16 @@
         function checkAnswers() {
             const h = document.getElementById('pwHeight').value.trim();
             const hero = document.getElementById('pwHero').value.trim().toLowerCase();
-            if(h === "8'15" && hero === "spooderman") {
+            const time = document.getElementById('pwTime').value.trim();
+            const chit = document.getElementById('pwChit').value.trim().toLowerCase();
+            const letter = document.getElementById('pwLetter').value.trim().toLowerCase();
+            const ultimatum = document.getElementById('pwUltimatum').value.trim();
+
+            if(h === "8'15" && hero === "spooderman" && time === "12:14" && chit === "pink" && letter === "coffee" && ultimatum === "2429") {
                 document.getElementById('screen1').classList.add('hidden');
                 document.getElementById('screen2').classList.remove('hidden');
             } else {
-                alert("Incorrect! Only the tall princess knows the way.");
+                alert("Incorrect. Access denied by Spooderman.");
             }
         }
 
@@ -163,10 +188,7 @@
             showBubble("Let me save u princess", 1500);
             
             setTimeout(() => {
-                // Teddy Physical Kick Motion
-                teddy.style.transform = "translateX(-50%) translateY(20px) rotate(-30deg) scale(1.3)";
-                
-                // Slow shove of the No button
+                teddy.style.transform = "translateX(-50%) translateY(40px) rotate(-45deg) scale(1.4)";
                 noBtn.classList.add('yeet');
                 showBubble("Just incase... 😉", 2000);
             }, 1000);
