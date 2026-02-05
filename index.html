@@ -8,19 +8,21 @@
 <style>
 :root { --main-blue:#0056b3; --accent-blue:#add8e6; --gold:gold; }
 
-body {
+body{
 background:#000; color:var(--accent-blue);
 font-family:Arial; display:flex;
 justify-content:center; align-items:center;
 min-height:100vh; margin:0; text-align:center;
+overflow-x:hidden;
 }
 
-.container {
+.container{
 width:90%; max-width:450px;
 padding:25px; border:2px solid var(--main-blue);
 border-radius:20px;
 background:rgba(0,10,40,0.95);
 box-shadow:0 0 30px rgba(0,86,179,0.6);
+position:relative;
 }
 
 .hidden{display:none;}
@@ -35,8 +37,8 @@ text-align:center;
 button{
 padding:15px 30px; background:var(--main-blue);
 color:white; border:none; border-radius:30px;
-cursor:pointer; margin:10px 5px; font-weight:bold;
-transition:0.3s;
+cursor:pointer; margin:10px 5px;
+font-weight:bold; transition:0.3s;
 }
 
 #teddy{
@@ -47,7 +49,8 @@ transition:0.5s; display:inline-block;
 #speech{
 background:white; color:black;
 padding:8px; border-radius:10px;
-position:absolute; margin-top:-50px;
+position:absolute; top:-40px; left:50%;
+transform:translateX(-50%);
 display:none; font-size:12px;
 }
 
@@ -76,26 +79,41 @@ animation:pulse 1s infinite;
 50%{transform:scale(1.7);}
 100%{transform:scale(1.6);}
 }
-
-.heart{
-position:absolute; font-size:28px;
-animation:heartFly 1s forwards;
-}
-@keyframes heartFly{
-0%{opacity:1;}
-100%{opacity:0; transform:translateY(-200px) scale(2);}
-}
 </style>
 </head>
 
 <body>
 
+<!-- QUIZ SCREEN -->
 <div id="screen1" class="container">
 <h2>If you've got the guts...</h2>
+<input id="pwHeight" placeholder="Height">
+<input id="pwHero" placeholder="Superhero">
+<input id="pwTime" placeholder="First text time">
+<input id="pwChit" placeholder="First chit colour">
+<input id="pwLetter" placeholder="Letter flavour">
 <input id="pwUltimatum" placeholder="Ultimatum Code">
 <br><button onclick="validateQuiz()">ENTER</button>
 </div>
 
+<!-- KEY SCREEN -->
+<div id="screenKey" class="container hidden">
+<h2 style="color:gold">ACCESS GRANTED</h2>
+<p>Your permanent key is: <b>2032</b></p>
+<input id="dailyInput" placeholder="Enter 2032">
+<br><button onclick="checkDailyKey()">OPEN</button>
+</div>
+
+<!-- ADMIN -->
+<div id="adminPanel" class="container hidden">
+<h3 style="color:red">ADMIN MODE</h3>
+<button onclick="showDay(7)">Rose</button>
+<button onclick="showDay(8)">Propose</button>
+<button onclick="showDay(9)">Choco</button>
+<button onclick="showDay(14)">Letter</button>
+</div>
+
+<!-- MAIN -->
 <div id="mainDisplay" class="container hidden">
 <div id="speech"></div>
 <div id="teddy">🧸</div>
@@ -104,34 +122,55 @@ animation:heartFly 1s forwards;
 
 <script>
 function validateQuiz(){
-if(document.getElementById('pwUltimatum').value==="2429"){
-document.getElementById('screen1').classList.add('hidden');
-document.getElementById('mainDisplay').classList.remove('hidden');
-routeDay();
+let h=pwHeight.value.trim();
+let hero=pwHero.value.trim().toLowerCase();
+let time=pwTime.value.trim();
+let chit=pwChit.value.trim().toLowerCase();
+let letter=pwLetter.value.trim().toLowerCase();
+let code=pwUltimatum.value.trim();
+
+if(code==="ADMIN00"){
+screen1.classList.add('hidden');
+adminPanel.classList.remove('hidden');
+return;
+}
+
+if(h==="8'15" && (hero==="spooderman"||hero==="spooderwoman")
+&& time==="12:14" && chit==="pink"
+&& letter==="coffee" && code==="2429"){
+screen1.classList.add('hidden');
+screenKey.classList.remove('hidden');
 }else alert("ACCESS DENIED");
 }
 
+function checkDailyKey(){
+if(dailyInput.value==="2032"){
+screenKey.classList.add('hidden');
+mainDisplay.classList.remove('hidden');
+routeDay();
+}else alert("WRONG KEY");
+}
+
 function speak(t){
-let s=document.getElementById('speech');
-s.innerText=t; s.style.display="block";
-setTimeout(()=>s.style.display="none",2000);
+speech.innerText=t;
+speech.style.display="block";
+setTimeout(()=>speech.style.display="none",2000);
 }
 
 function routeDay(){
-let today=new Date();
-if(today.getMonth()!==1){showDay(0);return;}
-showDay(today.getDate());
+let d=new Date();
+if(d.getMonth()!==1){showDay(0);return;}
+showDay(d.getDate());
 }
 
 function showDay(day){
-let content=document.getElementById('content');
-let teddy=document.getElementById('teddy');
 content.innerHTML="";
+teddy.style.transform="none";
 
-if(day<7){ countdown(); return; }
+if(day<7){countdown(); return;}
 
 if(day===7){
-content.innerHTML=`<h3>Happy Rose Day 🌹</h3>
+content.innerHTML=`<h3>Rose Day 🌹</h3>
 <img src="https://upload.wikimedia.org/wikipedia/commons/b/bf/Red_rose.jpg" class="floating-img">
 <img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/White_lily.jpg" class="floating-img">`;
 }
@@ -163,42 +202,25 @@ kick(yesBtn,"just in case hehe");
 setTimeout(()=>yesBtn.classList.add('glowing-yes'),800);
 }else{
 content.innerHTML=`<h3>💖</h3>
-<p>
-prettiest woman on earth is now mine. Thank you so much for travelling this journey brave soldier but we must warn u there's a lot more heart dwelling moments to be prepared for.
-<br><br>
-did I make u giggle a little bit princess?
-<br><br>
-Heheheheheheheh I love u so much jaanu be my bacha forever. I had so much fun coding this thinking about how happy you'll be.
-</p>`;
+<p>prettiest woman on earth is now mine... did I make u giggle?</p>`;
 }
 };
 }
 
 else if(day===9){
 content.innerHTML=`<h3>Chocolate Day 🍫</h3>
-<img src="https://upload.wikimedia.org/wikipedia/commons/7/70/Chocolate_%28blue_background%29.jpg" class="floating-img">
-<img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Chocolate.jpg" class="floating-img">`;
+<img src="https://upload.wikimedia.org/wikipedia/commons/7/70/Chocolate_%28blue_background%29.jpg" class="floating-img">`;
 }
 
 else if(day===14){
 content.innerHTML=`<h3>Final Letter ❤️</h3>
-<p>
-Mi tujha ahe ani phakta tujhaca ahe...
-<br><br>
-Lavu jaana i love u so much...
-<br><br>
-faithfully from your future husband
-</p>`;
-}
-
-else{
-content.innerHTML="<h3>Coming Soon...</h3>";
+<p>Mi tujha ahe ani phakta tujhaca ahe...<br><br>
+faithfully from your future husband</p>`;
 }
 }
 
 function countdown(){
-let content=document.getElementById('content');
-content.innerHTML=`<h3>Too Early!</h3><div id="t" class="timer"></div>`;
+content.innerHTML=`<h3>Too Early</h3><div id="t" class="timer"></div>`;
 setInterval(()=>{
 let diff=new Date(2026,1,7)-new Date();
 let h=Math.floor(diff/3600000);
@@ -211,3 +233,4 @@ document.getElementById('t').innerText=`${h}h ${m}m ${s}s`;
 
 </body>
 </html>
+
