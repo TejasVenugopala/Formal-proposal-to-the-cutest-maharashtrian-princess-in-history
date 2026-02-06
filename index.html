@@ -8,42 +8,47 @@
         :root { --main-blue: #0056b3; --accent-blue: #add8e6; --gold: gold; --crimson: #990000; --choco: #4b2c20; }
         body { background-color: #000; color: var(--accent-blue); font-family: 'Arial', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; overflow-x: hidden; text-align: center; }
         .container { width: 90%; max-width: 450px; padding: 25px; border: 2px solid var(--main-blue); border-radius: 20px; background: rgba(0, 10, 40, 0.95); position: relative; box-shadow: 0 0 30px rgba(0, 86, 179, 0.6); z-index: 10; transition: all 0.8s ease-in-out; }
-        .hidden { display: none !important; }
+        .hidden { display: none; }
         input { padding: 12px; border-radius: 10px; border: 2px solid #00f; background: #000; color: #fff; margin-top: 8px; width: 85%; text-align: center; font-size: 1rem; }
         button { padding: 15px 30px; background: var(--main-blue); color: white; border: none; border-radius: 30px; cursor: pointer; margin: 10px 5px; font-weight: bold; transition: 0.3s; }
         
-        #teddy { font-size: 70px; position: relative; cursor: pointer; transition: all 0.5s; display: inline-block; z-index: 100; }
+        #teddy { font-size: 70px; position: relative; cursor: pointer; transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: inline-block; z-index: 100; }
         #teddy span { font-size: 10px; background: var(--main-blue); color: white; padding: 2px 6px; border-radius: 4px; display: block; margin-bottom: 5px; }
+        
+        .big-emoji { font-size: 80px; margin: 20px 0; display: block; cursor: pointer; transition: transform 0.3s; }
+        .big-emoji:hover { transform: scale(1.1); }
         
         /* Choco Styles */
         .choco-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
-        .choco-label { background: linear-gradient(45deg, #3d1d11, #6d4c41); padding: 15px 10px; border-radius: 12px; border: 2px solid var(--gold); cursor: pointer; transition: 0.4s; color: var(--gold); font-weight: bold; }
+        .choco-label { background: linear-gradient(45deg, #3d1d11, #6d4c41); padding: 15px 10px; border-radius: 12px; border: 2px solid var(--gold); cursor: pointer; transition: 0.4s; color: var(--gold); font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        .choco-label:hover { transform: scale(1.05) translateY(-5px); box-shadow: 0 0 20px var(--gold); background: linear-gradient(45deg, #5d3d31, #8d6c61); }
+        .choco-particle { position: absolute; pointer-events: none; animation: chocoExplode 0.8s ease-out forwards; font-size: 20px; }
+        @keyframes chocoExplode { 0% { transform: translate(0,0) scale(1); opacity: 1; } 100% { transform: translate(var(--x), var(--y)) scale(0); opacity: 0; } }
         
-        /* Envelope Styles */
-        .envelope-wrapper { position: relative; cursor: pointer; margin: 30px auto; width: 120px; height: 80px; background: #b22222; border-radius: 0 0 5px 5px; transition: 0.5s; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
-        .envelope-wrapper::before { content: ""; position: absolute; top: -40px; left: 0; border-left: 60px solid transparent; border-right: 60px solid transparent; border-bottom: 40px solid #d43f3f; transition: 0.5s; transform-origin: bottom; }
-        .env-open::before { transform: rotateX(180deg); z-index: 0; }
-        .env-letter { background: #fff; color: #333; width: 90%; margin: 0 auto; padding: 0; height: 0; overflow: hidden; transition: 0.8s ease; border-radius: 5px; font-size: 0.9rem; text-align: left; }
-        .letter-active { height: auto; padding: 15px; margin-top: 10px; }
-
-        /* Scroll Styles */
-        .scroll-container { position: relative; margin-top: 10px; }
-        .scroll-roller { width: 100%; height: 35px; background: linear-gradient(to bottom, #d4af37, #f1c40f, #d4af37); border-radius: 20px; cursor: pointer; z-index: 20; position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.5); font-weight: bold; line-height: 35px; color: #4b2c20; }
-        .scroll-paper { background: #fdf5e6; color: #4b2c20; width: 85%; margin: -5px auto 0; height: 0; overflow: hidden; transition: height 1.5s ease; border: 2px solid #d4af37; border-top: none; padding: 0 15px; text-align: left; }
-        .scroll-open { height: 280px; padding: 20px 15px; overflow-y: auto; }
-
-        /* Kiss Day Immersive */
-        .lip-mark { position: fixed; font-size: 60px; pointer-events: none; z-index: 1000; animation: kissAnim 1.5s forwards; filter: drop-shadow(0 0 10px pink); }
-        @keyframes kissAnim { 0% { transform: scale(0); opacity: 0; } 30% { transform: scale(1.3); opacity: 1; } 100% { transform: scale(1); opacity: 0; } }
-
-        .heart { position: absolute; color: red; pointer-events: none; z-index: 1000; animation: heartFly 1s ease-out forwards; }
-        @keyframes heartFly { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-150px) scale(2); opacity: 0; } }
-
-        .letter-text { text-align: left; font-size: 0.95rem; line-height: 1.6; color: #fff; white-space: pre-line; border-left: 3px solid var(--main-blue); padding-left: 15px; }
-        #speech { background: white; color: black; padding: 8px; border-radius: 10px; font-weight: bold; position: absolute; top: -45px; left: 50%; transform: translateX(-50%); width: 150px; font-size: 12px; display: none; z-index: 110; }
+        .timer { font-size: 2rem; color: var(--gold); margin: 20px 0; }
+        .letter-text { text-align: left; font-size: 0.95rem; line-height: 1.6; color: #fff; white-space: pre-line; border-left: 3px solid var(--main-blue); padding-left: 15px; margin-top: 15px; }
+        
+        .crimson-theme { border-color: var(--crimson) !important; box-shadow: 0 0 30px rgba(153, 0, 0, 0.8) !important; background: rgba(20, 0, 0, 0.95) !important; }
         .petal { position: fixed; top: -10%; user-select: none; pointer-events: none; z-index: 1; animation: fall linear forwards; }
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
-        .hug-active { transform: scale(1.5); filter: drop-shadow(0 0 20px pink); }
+        
+        @keyframes slowShove { 0% { transform: translateX(0); } 100% { transform: translateX(800px) rotate(90deg); opacity: 0; } }
+        .yeet { animation: slowShove 1.5s ease-out forwards; }
+        .glowing-yes { transform: scale(1.6); background: #28a745 !important; box-shadow: 0 0 40px #28a745 !important; animation: pulse 1s infinite; }
+        @keyframes pulse { 0% { transform: scale(1.6); } 50% { transform: scale(1.7); } 100% { transform: scale(1.6); } }
+
+        .heart { position: absolute; color: red; font-size: 30px; pointer-events: none; animation: heartFly 1s ease-out forwards; z-index: 1000; }
+        @keyframes heartFly { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-200px) scale(2.5); opacity: 0; } }
+        
+        /* NEW IMMERSIVE STYLES */
+        .hug-vignette { position: fixed; inset: 0; background: radial-gradient(circle, transparent 20%, rgba(255, 182, 193, 0.8) 100%); opacity: 0; transition: opacity 0.6s ease; pointer-events: none; z-index: 5; }
+        .squeezing { transform: scale(0.96); filter: blur(1px); }
+        .hug-active { transform: scale(1.7); filter: drop-shadow(0 0 25px pink); }
+        
+        .lip-mark { position: absolute; font-size: 45px; pointer-events: none; z-index: 1000; user-select: none; filter: drop-shadow(0 0 5px rgba(255,0,0,0.5)); animation: kissFade 2s forwards; }
+        @keyframes kissFade { 0% { transform: scale(0) rotate(-15deg); opacity: 0; } 20% { transform: scale(1.2) rotate(10deg); opacity: 1; } 100% { transform: scale(1) rotate(0); opacity: 0; } }
+
+        #speech { background: white; color: black; padding: 8px; border-radius: 10px; font-weight: bold; position: absolute; top: -40px; left: 50%; transform: translateX(-50%); width: 140px; font-size: 12px; display: none; }
     </style>
 </head>
 <body>
@@ -84,7 +89,8 @@
     </div>
 
     <script>
-        let petalInterval, hugLoop;
+        let petalInterval;
+        let hugLoop;
 
         function validateQuiz() {
             const h = document.getElementById('pwHeight').value.trim();
@@ -111,86 +117,186 @@
             } else { alert("WRONG KEY."); }
         }
 
+        function createPetals() {
+            if(petalInterval) clearInterval(petalInterval);
+            petalInterval = setInterval(() => {
+                const p = document.createElement('div');
+                p.className = 'petal';
+                p.innerText = Math.random() > 0.5 ? '🌹' : '🤍';
+                p.style.left = Math.random() * 100 + 'vw';
+                p.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                p.style.fontSize = (Math.random() * 10 + 15) + 'px';
+                document.body.appendChild(p);
+                setTimeout(() => p.remove(), 5000);
+            }, 300);
+        }
+
         function speak(text) {
             const s = document.getElementById('speech');
             s.innerText = text; s.style.display = 'block';
-        }
-
-        function spawnHearts(x, y) {
-            for(let i=0; i<8; i++) {
-                const h = document.createElement('div'); h.className = 'heart'; h.innerText = '❤️';
-                h.style.left = (x || window.innerWidth/2) + (Math.random()*40-20) + 'px';
-                h.style.top = (y || window.innerHeight/2) + 'px';
-                document.body.appendChild(h);
-                setTimeout(() => h.remove(), 1000);
-            }
         }
 
         function showDay(dayNum) {
             const content = document.getElementById('content');
             const teddy = document.getElementById('teddy');
             const speech = document.getElementById('speech');
+            const container = document.querySelector('.container#mainDisplay');
+            
+            document.getElementById('mainDisplay').classList.remove('hidden');
+            document.getElementById('adminPanel').classList.add('hidden');
             
             content.innerHTML = ""; speech.style.display = 'none';
-            document.body.onclick = null;
+            teddy.onmousedown = null; teddy.onclick = null; teddy.style.transform = "none"; teddy.classList.remove('hug-active');
+            container.classList.remove('crimson-theme', 'squeezing');
+            document.body.onclick = null; // Reset screen-wide clicks
             if(petalInterval) clearInterval(petalInterval);
             if(hugLoop) clearInterval(hugLoop);
-            teddy.classList.remove('hug-active');
 
             if (dayNum === 7) {
-                content.innerHTML = `<h3>Happy Rose Day 🌹</h3><div style="font-size:60px" onclick="this.nextElementSibling.classList.remove('hidden')">🌹</div><div class="letter-text hidden">"In a world of fleeting seasons, you are my perennial spring. A single rose is enough for my garden, and you, Lavanya, are my only rose."</div>`;
-            }
+                container.classList.add('crimson-theme');
+                createPetals();
+                content.innerHTML = `
+                    <h3 style="color: #ff4d4d;">Happy Rose Day, My Eternal Bloom 🌹</h3>
+                    <span class="big-emoji" onclick="revealRosePoem()">🌹</span>
+                    <p style="font-size: 0.8rem; opacity: 0.7;">(Tap the rose to reveal my heart)</p>
+                    <div id="roseMessage" class="letter-text hidden" style="border-color: #ff4d4d;">
+                        "In a world of fleeting seasons, you are my perennial spring. A single rose is enough for my garden, and you, Lavanya, are my only rose."
+                        "Gulab toh sirf ek bahaana hai, asli nazaara toh tumhara muskurana hai. Mere dil ke bageeche ki sabse khoobsurat kali tum hi ho, aur hamesha rahogi."
+                        <br><br>Lavanya, this digital rose will stay in full bloom as long as this code exists. 
+                    </div>`;
+            } 
             else if (dayNum === 8) {
-                content.innerHTML = `<h3>Propose Day 💍</h3><button onclick="speak('i love u so much jaanu be my bacha forever'); spawnHearts();">Will you be mine?</button>`;
+                content.innerHTML = `<h3>Propose Day 💍</h3><p id="propText">Wait, Tejas has something to ask...</p>
+                <div id="btnContainer" class="hidden"><button id="noBtn">NO</button><button id="yesBtn">YES</button></div>`;
+                setTimeout(() => {
+                    speak("i have a crush on u its very big like a dinosaur so will u be my valentine 🥺");
+                    document.getElementById('btnContainer').classList.remove('hidden');
+                }, 1000);
+                const handleChoice = (isYes) => {
+                    const noBtn = document.getElementById('noBtn');
+                    const yesBtn = document.getElementById('yesBtn');
+                    speak(isYes ? "Good choice but just incase 😉" : "trust me i saved u from a very bad choice 😉");
+                    teddy.style.transform = "translateY(60px) rotate(-45deg) scale(1.5)";
+                    noBtn.classList.add('yeet');
+                    setTimeout(() => {
+                        teddy.style.transform = "rotate(0deg) scale(1.1)";
+                        yesBtn.classList.add('glowing-yes');
+                        yesBtn.onclick = () => {
+                            content.innerHTML = `<h3>Propose Day 💍</h3><p>prettiest woman on earth is now mine. Thank you so much for travelling this journey brave soldier. I love u so much jaanu be my bacha forever.</p>`;
+                        };
+                    }, 1000);
+                };
+                document.getElementById('noBtn').onclick = () => handleChoice(false);
+                document.getElementById('yesBtn').onclick = () => handleChoice(true);
             }
             else if (dayNum === 9) {
-                content.innerHTML = `<h3 style="color: var(--gold);">The Golden Treat 🍫</h3>
+                content.innerHTML = `<h3 style="color: var(--gold);">The Golden Treat 🍫</h3><div class="big-emoji">🍫</div>
                     <div class="choco-grid">
-                        <div class="choco-label" onclick="speak('Melts just like my heart when you smile.')">Oreo Silk</div>
-                        <div class="choco-label" onclick="speak('Crunchy and sweet, just like you.')">Twix</div>
-                        <div class="choco-label" onclick="speak('I promise to feed you these soon.')">A Promise</div>
+                        <div class="choco-label" onclick="bite(this, 'Melts just like my heart when you smile.')">Oreo Silk</div>
+                        <div class="choco-label" onclick="bite(this, 'Crunchy, sweet, and my favorite—just like you.')">Twix</div>
+                        <div class="choco-label" onclick="bite(this, 'I promise to feed you these soon. No more screens.')">A Promise</div>
+                        <div class="choco-label" onclick="bite(this, 'You are the sweetness in my life, Lavu.')">Dark Choco</div>
                     </div>`;
             }
             else if (dayNum === 10) {
-                content.innerHTML = `<h3>Happy Teddy Day! 🧸</h3><p>here's smol teddy for u. i love u so much jaaanuuuuuuuuuu.</p>`;
+                content.innerHTML = `<h3>Happy Teddy Day! 🧸</h3><p>here ehehheehheheheheeh here's smol teddy for u. i love u so much jaaanuuuuuuuuuu. happpppyyyyyy teddddyyyyyy dayyyyyy 🧸</p>`;
             }
             else if (dayNum === 11) {
-                content.innerHTML = `<h3>Promise Day 🤝</h3><p>Click the envelope to see my promise</p>
-                    <div class="envelope-wrapper" onclick="this.classList.toggle('env-open'); document.getElementById('pLetter').classList.toggle('letter-active')"></div>
-                    <div id="pLetter" class="env-letter">Lavanya meri jaan. i promise you, you will be my one and only forever. I will never ever get with another girl even if u leave me i promise u of that, i promise u that i have the clearest intentions at heart for u and i promise u every goal and dream i have of success you're a part of it.</div>`;
+                content.innerHTML = `<h3>Promise Day 🤝</h3><div class="letter-text">Lavanya meri jaan. i promise you, you will be my one and only forever. I will never ever get with another girl even if u leave me i promise u of that, i promise u that i have the clearest intentions at heart for u and i promise u every goal and dream i have of success you're a part of it.</div>`;
             }
             else if (dayNum === 12) {
-                content.innerHTML = `<h3>Hug Day 🫂</h3><p>Hold Tejas tight!</p>`;
-                teddy.onmousedown = () => { teddy.classList.add('hug-active'); hugLoop = setInterval(spawnHearts, 300); };
-                teddy.onmouseup = () => { teddy.classList.remove('hug-active'); clearInterval(hugLoop); };
+                content.innerHTML = `<h3>Hug Day 🫂</h3><p id="hugStatus">Long press Tejas to hold him tight...</p>`;
+                speak("Hold me and don't let go, my love.");
+                
+                const vig = document.createElement('div');
+                vig.className = 'hug-vignette';
+                document.body.appendChild(vig);
+
+                const startHug = (e) => {
+                    if(e.type === 'touchstart') e.preventDefault();
+                    teddy.classList.add('hug-active');
+                    container.classList.add('squeezing');
+                    vig.style.opacity = "1";
+                    document.getElementById('hugStatus').innerText = "Holding you forever... ❤️";
+                    spawnHearts();
+                    hugLoop = setInterval(spawnHearts, 300);
+                };
+                const endHug = () => {
+                    teddy.classList.remove('hug-active');
+                    container.classList.remove('squeezing');
+                    vig.style.opacity = "0";
+                    document.getElementById('hugStatus').innerText = "Long press Tejas to hold him tight...";
+                    clearInterval(hugLoop);
+                };
+                teddy.onmousedown = startHug; teddy.onmouseup = endHug;
+                teddy.ontouchstart = startHug; teddy.ontouchend = endHug;
             }
             else if (dayNum === 13) {
-                content.innerHTML = `<h3>Kiss Day 💋</h3><p>Tap anywhere to kiss me!</p>`;
-                document.body.onclick = (e) => {
-                    const l = document.createElement('div'); l.className = 'lip-mark'; l.innerHTML = '💋';
-                    l.style.left = e.clientX - 30 + 'px'; l.style.top = e.clientY - 30 + 'px';
-                    document.body.appendChild(l);
-                    spawnHearts(e.clientX, e.clientY);
-                    setTimeout(() => l.remove(), 1500);
+                content.innerHTML = `<h3>Kiss Day 💋</h3><p>Tap anywhere on the screen to kiss me!</p>`;
+                speak("MWAAAHHH! Close your eyes and feel it...");
+
+                const kissAction = (e) => {
+                    const x = e.clientX || (e.touches ? e.touches[0].clientX : 0);
+                    const y = e.clientY || (e.touches ? e.touches[0].clientY : 0);
+                    if(!x || !y) return;
+
+                    const lip = document.createElement('div');
+                    lip.className = 'lip-mark';
+                    lip.innerHTML = '💋';
+                    lip.style.left = (x - 25) + 'px';
+                    lip.style.top = (y - 25) + 'px';
+                    document.body.appendChild(lip);
+                    
+                    speak("I felt that! ❤️");
+                    spawnHearts();
+                    setTimeout(() => lip.remove(), 2000);
                 };
+                document.body.onclick = kissAction;
+                document.body.ontouchstart = kissAction;
             }
             else if (dayNum === 14) {
-                content.innerHTML = `<h3>Valentine's Day ❤️</h3>
-                    <div class="scroll-container">
-                        <div class="scroll-roller" onclick="document.getElementById('sPaper').classList.toggle('scroll-open'); speak('Always yours.');">OPEN MY HEART</div>
-                        <div id="sPaper" class="scroll-paper">
-                            <br><b>To my dearest Lavanya,</b><br><br>
-                            Mi tujha ahe ani phakta tujhaca ahe. Sarvasvi tu. Kayamaca majha raha...<br><br>
-                            Thank you for being the most beautiful part of my life. I love you forever.
-                        </div>
-                    </div>`;
+                content.innerHTML = `<h3>My Final Letter ❤️</h3><div class="letter-text">Mi tujha ahe ani phakta tujhaca ahe. Sarvasvi tu. Kayamaca majha raha... (Letter continues)</div>`;
             }
             else {
-                content.innerHTML = `<h3>Too early, princess!</h3><div id="t" style="font-size:2rem; color:gold;"></div>`;
-                setInterval(() => {
+                content.innerHTML = `<h3>Too early, princess!</h3><div class="timer" id="t"></div>`;
+                const timerInterval = setInterval(() => {
                     const diff = new Date(2026, 1, 7) - new Date();
-                    document.getElementById('t').innerText = Math.floor(diff/3600000) + "h " + Math.floor((diff%3600000)/60000) + "m";
+                    if (diff <= 0) { clearInterval(timerInterval); location.reload(); }
+                    document.getElementById('t').innerText = `${Math.floor(diff/3600000)}h ${Math.floor((diff%3600000)/60000)}m ${Math.floor((diff%60000)/1000)}s`;
                 }, 1000);
+            }
+        }
+
+        function bite(el, msg) {
+            speak(msg);
+            const rect = el.getBoundingClientRect();
+            for(let i=0; i<8; i++) {
+                const p = document.createElement('div');
+                p.className = 'choco-particle';
+                p.innerText = Math.random() > 0.5 ? '🍫' : '🟤';
+                p.style.left = (rect.left + rect.width/2) + 'px';
+                p.style.top = (rect.top + rect.height/2) + 'px';
+                p.style.setProperty('--x', (Math.random()*200 - 100) + 'px');
+                p.style.setProperty('--y', (Math.random()*200 - 100) + 'px');
+                document.body.appendChild(p);
+                setTimeout(() => p.remove(), 800);
+            }
+            el.style.transform = "scale(0.9)";
+            setTimeout(() => el.style.transform = "scale(1)", 100);
+        }
+
+        function revealRosePoem() {
+            document.getElementById('roseMessage').classList.remove('hidden');
+            spawnHearts();
+        }
+
+        function spawnHearts() {
+            for(let i=0; i<10; i++) {
+                const h = document.createElement('div'); h.className = 'heart'; h.innerText = '❤️';
+                h.style.left = (window.innerWidth/2 + (Math.random()*160 - 80)) + 'px';
+                h.style.top = (window.innerHeight/2) + 'px';
+                document.body.appendChild(h);
+                setTimeout(() => h.remove(), 1000);
             }
         }
     </script>
