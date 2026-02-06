@@ -218,6 +218,59 @@
                 teddy.onclick = () => { speak("MWAAAHHH! ❤️💋"); spawnHearts(); };
             }
             else if (dayNum === 14) {
-                content.innerHTML = `<h3>My Final Letter ❤️</h3><div class="letter-text">
+                content.innerHTML = `<h3>My Final Letter ❤️</h3><div class="letter-text">Mi tujha ahe ani phakta tujhaca ahe. Sarvasvi tu. Kayamaca majha raha ani mi vacana deto ki tu kayamaca tujha rahasila.
+Ata ya pudhe mi jya dolyancya premat paden te phakta aplya mulice astil. Ani mi mazyatli sagli shakti lavun he khatri karen ki dusrya kontyahi manusala ashi mulagi honar nahi jiche dole agadi tasyach asatil jyanvar mi prem kelay.
+Lavu jaana i love u so much, like being with u is all i ever want. You're a poem and i want to be its poet my love. i want to spend ends of centuries glorifying your beauty. That face of yours puts the stories of cleopatra to shame or you can say makes it a true reality. You're the only person i want to be with in every life of mine. So many different timespans and how lucky am i to have been born as the same one as u. Mai tumse bohut pyar karta hu jaanu, and i truely wish one day we get married but until then ill always love u to the depths of the universe. 
+
+faithfully from your
+future husband
+(ps visit the website again next year ml)</div>`;
+            }
+            else {
+                content.innerHTML = `<h3>Too early, princess!</h3><div class="timer" id="t"></div>`;
+                const timerInterval = setInterval(() => {
+                    const diff = new Date(2026, 1, 7) - new Date();
+                    if (diff <= 0) {
+                        clearInterval(timerInterval);
+                        location.reload();
+                    }
+                    document.getElementById('t').innerText = `${Math.floor(diff/3600000)}h ${Math.floor((diff%3600000)/60000)}m ${Math.floor((diff%60000)/1000)}s`;
+                }, 1000);
+            }
+        }
+
+        function bite(el, msg) {
+            speak(msg);
+            const rect = el.getBoundingClientRect();
+            for(let i=0; i<8; i++) {
+                const p = document.createElement('div');
+                p.className = 'choco-particle';
+                p.innerText = Math.random() > 0.5 ? '🍫' : '🟤';
+                p.style.left = (rect.left + rect.width/2) + 'px';
+                p.style.top = (rect.top + rect.height/2) + 'px';
+                p.style.setProperty('--x', (Math.random()*200 - 100) + 'px');
+                p.style.setProperty('--y', (Math.random()*200 - 100) + 'px');
+                document.body.appendChild(p);
+                setTimeout(() => p.remove(), 800);
+            }
+            el.style.transform = "scale(0.9)";
+            setTimeout(() => el.style.transform = "scale(1)", 100);
+        }
+
+        function revealRosePoem() {
+            document.getElementById('roseMessage').classList.remove('hidden');
+            spawnHearts();
+        }
+
+        function spawnHearts() {
+            for(let i=0; i<15; i++) {
+                const h = document.createElement('div'); h.className = 'heart'; h.innerText = '❤️';
+                h.style.left = (window.innerWidth/2 + (Math.random()*120 - 60)) + 'px';
+                h.style.top = (window.innerHeight/2) + 'px';
+                document.body.appendChild(h);
+                setTimeout(() => h.remove(), 1000);
+            }
+        }
+    </script>
 </body>
 </html>
