@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Ultimatum</title>
     <style>
-        :root { --main-blue: #0056b3; --accent-blue: #add8e6; --gold: gold; }
+        :root { --main-blue: #0056b3; --accent-blue: #add8e6; --gold: gold; --crimson: #990000; }
         body { background-color: #000; color: var(--accent-blue); font-family: 'Arial', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; overflow-x: hidden; text-align: center; }
-        .container { width: 90%; max-width: 450px; padding: 25px; border: 2px solid var(--main-blue); border-radius: 20px; background: rgba(0, 10, 40, 0.95); position: relative; box-shadow: 0 0 30px rgba(0, 86, 179, 0.6); }
+        .container { width: 90%; max-width: 450px; padding: 25px; border: 2px solid var(--main-blue); border-radius: 20px; background: rgba(0, 10, 40, 0.95); position: relative; box-shadow: 0 0 30px rgba(0, 86, 179, 0.6); z-index: 10; }
         .hidden { display: none; }
         input { padding: 12px; border-radius: 10px; border: 2px solid #00f; background: #000; color: #fff; margin-top: 8px; width: 85%; text-align: center; font-size: 1rem; }
         button { padding: 15px 30px; background: var(--main-blue); color: white; border: none; border-radius: 30px; cursor: pointer; margin: 10px 5px; font-weight: bold; transition: 0.3s; }
@@ -15,12 +15,18 @@
         #teddy { font-size: 70px; position: relative; cursor: pointer; transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: inline-block; z-index: 100; }
         #teddy span { font-size: 10px; background: var(--main-blue); color: white; padding: 2px 6px; border-radius: 4px; display: block; margin-bottom: 5px; }
         
-        .big-emoji { font-size: 80px; margin: 20px 0; display: block; }
+        .big-emoji { font-size: 80px; margin: 20px 0; display: block; cursor: pointer; transition: transform 0.3s; }
+        .big-emoji:hover { transform: scale(1.1); }
         .choco-label { background: rgba(255,255,255,0.1); padding: 10px; border-radius: 10px; margin: 10px; display: inline-block; border: 1px solid var(--accent-blue); cursor: pointer; transition: 0.3s; }
         .choco-label:hover { background: var(--main-blue); }
         
         .timer { font-size: 2rem; color: var(--gold); margin: 20px 0; }
         .letter-text { text-align: left; font-size: 0.95rem; line-height: 1.6; color: #fff; white-space: pre-line; border-left: 3px solid var(--main-blue); padding-left: 15px; margin-top: 15px; }
+        
+        /* Rose Day Specials */
+        .crimson-theme { border-color: var(--crimson) !important; box-shadow: 0 0 30px rgba(153, 0, 0, 0.8) !important; background: rgba(20, 0, 0, 0.95) !important; }
+        .petal { position: fixed; top: -10%; user-select: none; pointer-events: none; z-index: 1; animation: fall linear forwards; }
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
         
         @keyframes slowShove { 0% { transform: translateX(0); } 100% { transform: translateX(800px) rotate(90deg); opacity: 0; } }
         .yeet { animation: slowShove 1.5s ease-out forwards; }
@@ -32,8 +38,6 @@
         .hug-active { transform: scale(1.7); filter: drop-shadow(0 0 25px pink); }
         
         #speech { background: white; color: black; padding: 8px; border-radius: 10px; font-weight: bold; position: absolute; top: -40px; left: 50%; transform: translateX(-50%); width: 140px; font-size: 12px; display: none; }
-        
-        .rose-petal { font-style: italic; color: #ffb6c1; margin: 10px 0; font-size: 0.9rem; border-bottom: 1px solid rgba(255,182,193,0.2); padding-bottom: 5px; }
     </style>
 </head>
 <body>
@@ -74,6 +78,8 @@
     </div>
 
     <script>
+        let petalInterval;
+
         function validateQuiz() {
             const h = document.getElementById('pwHeight').value.trim();
             const hero = document.getElementById('pwHero').value.trim().toLowerCase();
@@ -99,6 +105,20 @@
             } else { alert("WRONG KEY."); }
         }
 
+        function createPetals() {
+            if(petalInterval) clearInterval(petalInterval);
+            petalInterval = setInterval(() => {
+                const p = document.createElement('div');
+                p.className = 'petal';
+                p.innerText = Math.random() > 0.5 ? '🌹' : '🤍';
+                p.style.left = Math.random() * 100 + 'vw';
+                p.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                p.style.fontSize = (Math.random() * 10 + 15) + 'px';
+                document.body.appendChild(p);
+                setTimeout(() => p.remove(), 5000);
+            }, 300);
+        }
+
         function speak(text) {
             const s = document.getElementById('speech');
             s.innerText = text; s.style.display = 'block';
@@ -108,23 +128,31 @@
             const content = document.getElementById('content');
             const teddy = document.getElementById('teddy');
             const speech = document.getElementById('speech');
+            const container = document.querySelector('.container#mainDisplay');
             
-            // Fixed: Ensure mainDisplay is always visible when showing a day
             document.getElementById('mainDisplay').classList.remove('hidden');
             document.getElementById('adminPanel').classList.add('hidden');
             
             content.innerHTML = ""; speech.style.display = 'none';
             teddy.onmousedown = null; teddy.onclick = null; teddy.style.transform = "none"; teddy.classList.remove('hug-active');
+            container.classList.remove('crimson-theme');
+            if(petalInterval) clearInterval(petalInterval);
 
             if (dayNum === 7) {
+                container.classList.add('crimson-theme');
+                createPetals();
                 content.innerHTML = `
-                    <h3>Happy Rose Day, My Eternal Bloom 🌹</h3>
-                    <span class="big-emoji">🌹</span>
-                    <div class="letter-text">
-                        <div class="rose-petal">"A rose for the woman who made my heart a garden."</div>
-                        Lavanya, I know I can't be there with a bouquet irl because of boards and "security" at home. But a physical rose withers in a week; this digital one I've coded for you will stay in full bloom as long as this code exists. 
+                    <h3 style="color: #ff4d4d;">Happy Rose Day, My Eternal Bloom 🌹</h3>
+                    <span class="big-emoji" onclick="revealRosePoem()">🌹</span>
+                    <p style="font-size: 0.8rem; opacity: 0.7;">(Tap the rose to reveal my heart)</p>
+                    <div id="roseMessage" class="letter-text hidden" style="border-color: #ff4d4d;">
+                        <strong>English:</strong>
+                        "In a world of fleeting seasons, you are my perennial spring. A single rose is enough for my garden, and you, Lavanya, are my only rose."
                         
-                        You are my Rose and my Lily—the softest part of my world and the most beautiful sight I've ever seen. I love you more than words can render.
+                        <strong>Hindi:</strong>
+                        "Gulab toh sirf ek bahaana hai, asli nazaara toh tumhara muskurana hai. Mere dil ke bageeche ki sabse khoobsurat kali tum hi ho, aur hamesha rahogi."
+                        <br><br>
+                        Lavanya, I know I can't be there with a bouquet irl because of boards and "security" at home. But a physical rose withers; this digital one I've coded for you will stay in full bloom as long as this code exists. 
                     </div>`;
             } 
             else if (dayNum === 8) {
@@ -176,7 +204,6 @@
                 speak("hold me pleaseeee my loveee");
                 teddy.onmousedown = () => { teddy.classList.add('hug-active'); spawnHearts(); };
                 teddy.onmouseup = () => { teddy.classList.remove('hug-active'); };
-                // Added touch support for mobile
                 teddy.ontouchstart = () => { teddy.classList.add('hug-active'); spawnHearts(); };
                 teddy.ontouchend = () => { teddy.classList.remove('hug-active'); };
             }
@@ -205,6 +232,11 @@ future husband
                     document.getElementById('t').innerText = `${Math.floor(diff/3600000)}h ${Math.floor((diff%3600000)/60000)}m ${Math.floor((diff%60000)/1000)}s`;
                 }, 1000);
             }
+        }
+
+        function revealRosePoem() {
+            document.getElementById('roseMessage').classList.remove('hidden');
+            spawnHearts();
         }
 
         function spawnHearts() {
