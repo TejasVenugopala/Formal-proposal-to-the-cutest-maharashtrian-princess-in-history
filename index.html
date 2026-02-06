@@ -16,7 +16,8 @@
         #teddy span { font-size: 10px; background: var(--main-blue); color: white; padding: 2px 6px; border-radius: 4px; display: block; margin-bottom: 5px; }
         
         .big-emoji { font-size: 80px; margin: 20px 0; display: block; }
-        .choco-label { background: rgba(255,255,255,0.1); padding: 10px; border-radius: 10px; margin: 10px; display: inline-block; border: 1px solid var(--accent-blue); }
+        .choco-label { background: rgba(255,255,255,0.1); padding: 10px; border-radius: 10px; margin: 10px; display: inline-block; border: 1px solid var(--accent-blue); cursor: pointer; transition: 0.3s; }
+        .choco-label:hover { background: var(--main-blue); }
         
         .timer { font-size: 2rem; color: var(--gold); margin: 20px 0; }
         .letter-text { text-align: left; font-size: 0.95rem; line-height: 1.6; color: #fff; white-space: pre-line; border-left: 3px solid var(--main-blue); padding-left: 15px; margin-top: 15px; }
@@ -31,6 +32,8 @@
         .hug-active { transform: scale(1.7); filter: drop-shadow(0 0 25px pink); }
         
         #speech { background: white; color: black; padding: 8px; border-radius: 10px; font-weight: bold; position: absolute; top: -40px; left: 50%; transform: translateX(-50%); width: 140px; font-size: 12px; display: none; }
+        
+        .rose-petal { font-style: italic; color: #ffb6c1; margin: 10px 0; font-size: 0.9rem; border-bottom: 1px solid rgba(255,182,193,0.2); padding-bottom: 5px; }
     </style>
 </head>
 <body>
@@ -105,14 +108,24 @@
             const content = document.getElementById('content');
             const teddy = document.getElementById('teddy');
             const speech = document.getElementById('speech');
+            
+            // Fixed: Ensure mainDisplay is always visible when showing a day
             document.getElementById('mainDisplay').classList.remove('hidden');
+            document.getElementById('adminPanel').classList.add('hidden');
+            
             content.innerHTML = ""; speech.style.display = 'none';
             teddy.onmousedown = null; teddy.onclick = null; teddy.style.transform = "none"; teddy.classList.remove('hug-active');
 
             if (dayNum === 7) {
-                content.innerHTML = `<h3>Happy Rose Day My Love! 🌹</h3>
-                <span class="big-emoji">🌹🌷</span>
-                <p>I know u love both roses and lillies. I wish I could come home and give them irl but boards and strict parents... I love u.</p>`;
+                content.innerHTML = `
+                    <h3>Happy Rose Day, My Eternal Bloom 🌹</h3>
+                    <span class="big-emoji">🌹</span>
+                    <div class="letter-text">
+                        <div class="rose-petal">"A rose for the woman who made my heart a garden."</div>
+                        Lavanya, I know I can't be there with a bouquet irl because of boards and "security" at home. But a physical rose withers in a week; this digital one I've coded for you will stay in full bloom as long as this code exists. 
+                        
+                        You are my Rose and my Lily—the softest part of my world and the most beautiful sight I've ever seen. I love you more than words can render.
+                    </div>`;
             } 
             else if (dayNum === 8) {
                 content.innerHTML = `<h3>Propose Day 💍</h3><p id="propText">Wait, Tejas has something to ask...</p>
@@ -141,11 +154,16 @@
                 document.getElementById('yesBtn').onclick = () => handleChoice(true);
             }
             else if (dayNum === 9) {
-                content.innerHTML = `<h3>Happppppyyyyyy Chocolateee Day Mlllllllll 🍫</h3>
-                <span class="big-emoji">🍫✨🍫</span>
-                <div class="choco-label">Oreo Silk</div>
-                <div class="choco-label">Twix</div>
-                <p>If I could I would be there and feed u jaanu but sadly I can't. Just this and the next Valentine's... then no one will question us.</p>`;
+                content.innerHTML = `
+                    <h3>A Sweetness Beyond Chocolate 🍫</h3>
+                    <span class="big-emoji">✨🍫✨</span>
+                    <p><i>Tap the treats below, they each hold a secret message...</i></p>
+                    <div class="choco-label" onclick="speak('Melts just like my heart when you smile.')">Oreo Silk</div>
+                    <div class="choco-label" onclick="speak('Crunchy, sweet, and my absolute favorite—just like you.')">Twix</div>
+                    <div class="choco-label" onclick="speak('One day, I\'ll feed you these myself. No screen, just us.')">A Promise</div>
+                    <div class="letter-text">
+                        If I could, I would be there to make every moment as sweet as your favorite Silk. For now, let these digital bites remind you that you're the only "sweet" I'll ever need. Just this and the next Valentine's... then no one will question us.
+                    </div>`;
             }
             else if (dayNum === 10) {
                 content.innerHTML = `<h3>Happy Teddy Day! 🧸</h3><p>here ehehheehheheheheeh here's smol teddy for u. i love u so much jaaanuuuuuuuuuu. happpppyyyyyy teddddyyyyyy dayyyyyy 🧸</p>`;
@@ -158,6 +176,9 @@
                 speak("hold me pleaseeee my loveee");
                 teddy.onmousedown = () => { teddy.classList.add('hug-active'); spawnHearts(); };
                 teddy.onmouseup = () => { teddy.classList.remove('hug-active'); };
+                // Added touch support for mobile
+                teddy.ontouchstart = () => { teddy.classList.add('hug-active'); spawnHearts(); };
+                teddy.ontouchend = () => { teddy.classList.remove('hug-active'); };
             }
             else if (dayNum === 13) {
                 content.innerHTML = `<h3>Kiss Day 💋</h3><p><b>(Click Tejas for a kiss!)</b></p>`;
@@ -175,8 +196,12 @@ future husband
             }
             else {
                 content.innerHTML = `<h3>Too early, princess!</h3><div class="timer" id="t"></div>`;
-                setInterval(() => {
+                const timerInterval = setInterval(() => {
                     const diff = new Date(2026, 1, 7) - new Date();
+                    if (diff <= 0) {
+                        clearInterval(timerInterval);
+                        location.reload();
+                    }
                     document.getElementById('t').innerText = `${Math.floor(diff/3600000)}h ${Math.floor((diff%3600000)/60000)}m ${Math.floor((diff%60000)/1000)}s`;
                 }, 1000);
             }
