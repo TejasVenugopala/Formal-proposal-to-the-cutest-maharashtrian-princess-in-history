@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Ultimatum</title>
     <style>
-        :root { --main-blue: #0056b3; --accent-blue: #add8e6; --gold: gold; --crimson: #990000; }
+        :root { --main-blue: #0056b3; --accent-blue: #add8e6; --gold: gold; --crimson: #990000; --choco: #4b2c20; }
         body { background-color: #000; color: var(--accent-blue); font-family: 'Arial', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; overflow-x: hidden; text-align: center; }
         .container { width: 90%; max-width: 450px; padding: 25px; border: 2px solid var(--main-blue); border-radius: 20px; background: rgba(0, 10, 40, 0.95); position: relative; box-shadow: 0 0 30px rgba(0, 86, 179, 0.6); z-index: 10; }
         .hidden { display: none; }
@@ -17,13 +17,17 @@
         
         .big-emoji { font-size: 80px; margin: 20px 0; display: block; cursor: pointer; transition: transform 0.3s; }
         .big-emoji:hover { transform: scale(1.1); }
-        .choco-label { background: rgba(255,255,255,0.1); padding: 10px; border-radius: 10px; margin: 10px; display: inline-block; border: 1px solid var(--accent-blue); cursor: pointer; transition: 0.3s; }
-        .choco-label:hover { background: var(--main-blue); }
+        
+        /* Immersive Choco Styles */
+        .choco-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+        .choco-label { background: linear-gradient(45deg, #3d1d11, #6d4c41); padding: 15px 10px; border-radius: 12px; border: 2px solid var(--gold); cursor: pointer; transition: 0.4s; color: var(--gold); font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        .choco-label:hover { transform: scale(1.05) translateY(-5px); box-shadow: 0 0 20px var(--gold); background: linear-gradient(45deg, #5d3d31, #8d6c61); }
+        .choco-particle { position: absolute; pointer-events: none; animation: chocoExplode 0.8s ease-out forwards; font-size: 20px; }
+        @keyframes chocoExplode { 0% { transform: translate(0,0) scale(1); opacity: 1; } 100% { transform: translate(var(--x), var(--y)) scale(0); opacity: 0; } }
         
         .timer { font-size: 2rem; color: var(--gold); margin: 20px 0; }
         .letter-text { text-align: left; font-size: 0.95rem; line-height: 1.6; color: #fff; white-space: pre-line; border-left: 3px solid var(--main-blue); padding-left: 15px; margin-top: 15px; }
         
-        /* Rose Day Specials */
         .crimson-theme { border-color: var(--crimson) !important; box-shadow: 0 0 30px rgba(153, 0, 0, 0.8) !important; background: rgba(20, 0, 0, 0.95) !important; }
         .petal { position: fixed; top: -10%; user-select: none; pointer-events: none; z-index: 1; animation: fall linear forwards; }
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
@@ -146,10 +150,8 @@
                     <span class="big-emoji" onclick="revealRosePoem()">🌹</span>
                     <p style="font-size: 0.8rem; opacity: 0.7;">(Tap the rose to reveal my heart)</p>
                     <div id="roseMessage" class="letter-text hidden" style="border-color: #ff4d4d;">
-                        <strong>English:</strong>
                         "In a world of fleeting seasons, you are my perennial spring. A single rose is enough for my garden, and you, Lavanya, are my only rose."
                         
-                        <strong>Hindi:</strong>
                         "Gulab toh sirf ek bahaana hai, asli nazaara toh tumhara muskurana hai. Mere dil ke bageeche ki sabse khoobsurat kali tum hi ho, aur hamesha rahogi."
                         <br><br>
                         Lavanya, I know I can't be there with a bouquet irl because of boards and "security" at home. But a physical rose withers; this digital one I've coded for you will stay in full bloom as long as this code exists. 
@@ -183,14 +185,17 @@
             }
             else if (dayNum === 9) {
                 content.innerHTML = `
-                    <h3>A Sweetness Beyond Chocolate 🍫</h3>
-                    <span class="big-emoji">✨🍫✨</span>
-                    <p><i>Tap the treats below, they each hold a secret message...</i></p>
-                    <div class="choco-label" onclick="speak('Melts just like my heart when you smile.')">Oreo Silk</div>
-                    <div class="choco-label" onclick="speak('Crunchy, sweet, and my absolute favorite—just like you.')">Twix</div>
-                    <div class="choco-label" onclick="speak('One day, I\'ll feed you these myself. No screen, just us.')">A Promise</div>
-                    <div class="letter-text">
-                        If I could, I would be there to make every moment as sweet as your favorite Silk. For now, let these digital bites remind you that you're the only "sweet" I'll ever need. Just this and the next Valentine's... then no one will question us.
+                    <h3 style="color: var(--gold);">The Golden Treat 🍫</h3>
+                    <div class="big-emoji">🍫</div>
+                    <p><i>Unwrap these special treats for a surprise...</i></p>
+                    <div class="choco-grid">
+                        <div class="choco-label" onclick="bite(this, 'Melts just like my heart when you smile.')">Oreo Silk</div>
+                        <div class="choco-label" onclick="bite(this, 'Crunchy, sweet, and my favorite—just like you.')">Twix</div>
+                        <div class="choco-label" onclick="bite(this, 'I promise to feed you these soon. No more screens.')">A Promise</div>
+                        <div class="choco-label" onclick="bite(this, 'You are the sweetness in my life, Lavu.')">Dark Choco</div>
+                    </div>
+                    <div class="letter-text" style="margin-top:25px;">
+                        If I could, I would be there to make every moment as sweet as your favorite Silk. For now, let these digital bites remind you that you're the only "sweet" I'll ever need.
                     </div>`;
             }
             else if (dayNum === 10) {
@@ -213,41 +218,6 @@
                 teddy.onclick = () => { speak("MWAAAHHH! ❤️💋"); spawnHearts(); };
             }
             else if (dayNum === 14) {
-                content.innerHTML = `<h3>My Final Letter ❤️</h3><div class="letter-text">Mi tujha ahe ani phakta tujhaca ahe. Sarvasvi tu. Kayamaca majha raha ani mi vacana deto ki tu kayamaca tujha rahasila.
-Ata ya pudhe mi jya dolyancya premat paden te phakta aplya mulice astil. Ani mi mazyatli sagli shakti lavun he khatri karen ki dusrya kontyahi manusala ashi mulagi honar nahi jiche dole agadi tasyach asatil jyanvar mi prem kelay.
-Lavu jaana i love u so much, like being with u is all i ever want. You're a poem and i want to be its poet my love. i want to spend ends of centuries glorifying your beauty. That face of yours puts the stories of cleopatra to shame or you can say makes it a true reality. You're the only person i want to be with in every life of mine. So many different timespans and how lucky am i to have been born as the same one as u. Mai tumse bohut pyar karta hu jaanu, and i truely wish one day we get married but until then ill always love u to the depths of the universe. 
-
-faithfully from your
-future husband
-(ps visit the website again next year ml)</div>`;
-            }
-            else {
-                content.innerHTML = `<h3>Too early, princess!</h3><div class="timer" id="t"></div>`;
-                const timerInterval = setInterval(() => {
-                    const diff = new Date(2026, 1, 7) - new Date();
-                    if (diff <= 0) {
-                        clearInterval(timerInterval);
-                        location.reload();
-                    }
-                    document.getElementById('t').innerText = `${Math.floor(diff/3600000)}h ${Math.floor((diff%3600000)/60000)}m ${Math.floor((diff%60000)/1000)}s`;
-                }, 1000);
-            }
-        }
-
-        function revealRosePoem() {
-            document.getElementById('roseMessage').classList.remove('hidden');
-            spawnHearts();
-        }
-
-        function spawnHearts() {
-            for(let i=0; i<15; i++) {
-                const h = document.createElement('div'); h.className = 'heart'; h.innerText = '❤️';
-                h.style.left = (window.innerWidth/2 + (Math.random()*120 - 60)) + 'px';
-                h.style.top = (window.innerHeight/2) + 'px';
-                document.body.appendChild(h);
-                setTimeout(() => h.remove(), 1000);
-            }
-        }
-    </script>
+                content.innerHTML = `<h3>My Final Letter ❤️</h3><div class="letter-text">
 </body>
 </html>
