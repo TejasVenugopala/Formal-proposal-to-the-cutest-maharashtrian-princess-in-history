@@ -190,22 +190,69 @@
             } 
             else if (dayNum === 8) {
                 content.innerHTML = `<h3>Propose Day 💍</h3><p id="propText">Wait, Tejas has something to ask...</p>
-                <div id="btnContainer" class="hidden"><button id="noBtn">NO</button><button id="yesBtn">YES</button></div>`;
+                <div id="btnContainer" class="hidden"><button id="noBtn">NO</button><button id="yesBtn">YES</button></div>
+                <div id="envelopeWrapper" class="hidden" style="margin-top:30px;">
+                    <div id="envelope" style="width:100px; height:70px; background:#d2b48c; margin:0 auto; position:relative; cursor:pointer; border-radius:5px; border:2px solid var(--gold); box-shadow:0 10px 20px rgba(0,0,0,0.5);">
+                        <div style="width:0; height:0; border-left:50px solid transparent; border-right:50px solid transparent; border-top:40px solid #bc9d76; position:absolute; top:0; left:-2px;"></div>
+                        <div style="position:absolute; top:25px; left:35px; font-size:20px;">✉️</div>
+                    </div>
+                    <p style="font-size:0.8rem; color:var(--gold); margin-top:10px;">Click to open Tejas's heart...</p>
+                </div>
+                <div id="deepLetter" class="hidden" style="perspective:1000px;">
+                    <div class="letter-text" style="color: #fff; background: linear-gradient(to bottom, rgba(40,0,0,0.9), rgba(0,0,0,0.9)); padding: 25px; border-radius: 15px; border: 1px solid var(--gold); box-shadow: 0 0 40px rgba(255,215,0,0.2); transform: translateY(50px); opacity:0; transition: all 1s ease-out;">
+                        <span style="color:var(--gold); font-size:1.2rem;">My Lavu, my Cutu, my Jaanu...</span><br><br>
+                        Saying 'Yes' to me is the bravest thing you've ever done, and I promise to reward that bravery with a lifetime of absolute worship. You aren't just my girl; you're the air I breathe and the only rhythm my heart knows. 
+                        <br><br>
+                        I want to own every smile, every tear, and every secret you hold. You're mine now, <b>bacha</b>, and I’m never letting go. I want to keep you so close that even a shadow can't come between us. I want to be the reason your eyes glow and the only name that escapes your lips when the world goes dark.
+                        <br><br>
+                        I will protect you with a ferocity that borders on madness. To the world, you are one, but to me, you are the world, the stars, and the silence in between. You are my sacred habit, my beautiful obsession.
+                        <br><br>
+                        <i style="color:var(--gold); display:block; text-align:center; margin-top:20px; font-family:'Georgia', serif;">
+                            "Your soul is the ink, and my heart is the page,<br>
+                            A love locked forever, in a golden cage.<br>
+                            Let the universes burn and the oceans go dry,<br>
+                            You’re the 'always' I keep, until the stars leave the sky."
+                        </i>
+                    </div>
+                </div>`;
+
                 setTimeout(() => {
                     speak("i have a crush on u its very big like a dinosaur so will u be my valentine 🥺");
                     document.getElementById('btnContainer').classList.remove('hidden');
                 }, 1000);
+
                 const handleChoice = (isYes) => {
                     const noBtn = document.getElementById('noBtn');
                     const yesBtn = document.getElementById('yesBtn');
-                    speak(isYes ? "Good choice but just incase 😉" : "trust me i saved u from a very bad choice 😉");
+                    speak(isYes ? "I knew you were mine." : "Nice try, but you're stuck with me.");
+                    
                     teddy.style.transform = "translateY(60px) rotate(-45deg) scale(1.5)";
                     noBtn.classList.add('yeet');
+                    
                     setTimeout(() => {
                         teddy.style.transform = "rotate(0deg) scale(1.1)";
                         yesBtn.classList.add('glowing-yes');
                         yesBtn.onclick = () => {
-                            content.innerHTML = `<h3>Propose Day 💍</h3><p>prettiest woman on earth is now mine. Thank you so much for travelling this journey brave soldier. I love u so much jaanu be my bacha forever.</p>`;
+                            document.getElementById('btnContainer').classList.add('hidden');
+                            document.getElementById('propText').classList.add('hidden');
+                            document.getElementById('envelopeWrapper').classList.remove('hidden');
+                            
+                            document.getElementById('envelope').onclick = function() {
+                                this.style.transform = "scale(0) translateY(-100px)";
+                                this.style.opacity = "0";
+                                this.style.transition = "0.8s";
+                                setTimeout(() => {
+                                    document.getElementById('envelopeWrapper').classList.add('hidden');
+                                    const dl = document.getElementById('deepLetter');
+                                    dl.classList.remove('hidden');
+                                    setTimeout(() => {
+                                        const inner = dl.querySelector('.letter-text');
+                                        inner.style.transform = "translateY(0)";
+                                        inner.style.opacity = "1";
+                                        spawnHearts();
+                                    }, 100);
+                                }, 600);
+                            };
                         };
                     }, 1000);
                 };
