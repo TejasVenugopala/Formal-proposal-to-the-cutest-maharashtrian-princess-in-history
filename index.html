@@ -18,14 +18,12 @@
         .big-emoji { font-size: 80px; margin: 20px 0; display: block; cursor: pointer; transition: transform 0.3s; }
         .big-emoji:hover { transform: scale(1.1); }
         
-        /* Day 11: Enhanced Promise Interaction */
         .vow-display { min-height: 150px; display: flex; align-items: center; justify-content: center; margin-top: 20px; }
         .vow-card { background: rgba(255, 255, 255, 0.05); border: 2px solid var(--gold); padding: 20px; border-radius: 15px; cursor: pointer; transition: 0.5s; font-style: italic; line-height: 1.5; animation: vowGlow 2s infinite alternate; }
         @keyframes vowGlow { from { box-shadow: 0 0 5px var(--gold); } to { box-shadow: 0 0 20px var(--gold); } }
         .vow-card:hover { transform: scale(1.05); background: rgba(255, 215, 0, 0.1); }
         .vow-fade-out { transform: scale(0) translateY(-100px); opacity: 0; filter: blur(10px); }
 
-        /* Day 14: Final Scroll Styles */
         .scroll-wrapper { perspective: 1000px; margin-top: 20px; cursor: pointer; }
         .scroll-paper { 
             background: #f4e4bc; color: #2b1e16; padding: 0px 20px; border-radius: 2px;
@@ -36,7 +34,6 @@
         .scroll-open { max-height: 2000px; padding: 40px 25px; }
         .scroll-rod { height: 20px; background: linear-gradient(to bottom, #5d3d31, #d2b48c, #5d3d31); border-radius: 10px; width: 110%; margin-left: -5%; position: relative; z-index: 11; }
 
-        /* Choco Styles */
         .choco-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
         .choco-label { background: linear-gradient(45deg, #3d1d11, #6d4c41); padding: 15px 10px; border-radius: 12px; border: 2px solid var(--gold); cursor: pointer; transition: 0.4s; color: var(--gold); font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
         .choco-label:hover { transform: scale(1.05) translateY(-5px); box-shadow: 0 0 20px var(--gold); background: linear-gradient(45deg, #5d3d31, #8d6c61); }
@@ -216,16 +213,38 @@
                 document.getElementById('yesBtn').onclick = () => handleChoice(true);
             }
             else if (dayNum === 9) {
-                content.innerHTML = `<h3 style="color: var(--gold);">The Golden Treat 🍫</h3><div class="big-emoji">🍫</div>
+                content.innerHTML = `
+                    <h3 style="color: var(--gold);">The Sweetness of Us 🍫</h3>
+                    <p style="font-style: italic; opacity: 0.8; color: var(--accent-blue);">Har tukda ek vaada hai...</p>
                     <div class="choco-grid">
-                        <div class="choco-label" onclick="bite(this, 'Melts just like my heart when you smile.')">Oreo Silk</div>
-                        <div class="choco-label" onclick="bite(this, 'Crunchy, sweet, and my favorite—just like you.')">Twix</div>
-                        <div class="choco-label" onclick="bite(this, 'I promise to feed you these soon. No more screens.')">A Promise</div>
-                        <div class="choco-label" onclick="bite(this, 'You are the sweetness in my life, Lavu.')">Dark Choco</div>
+                        <div class="choco-label" onclick="bite(this, 'Tumhari baaton mein woh mithaas hai, jo sabse mehngi chocolate mein bhi nahi.')">Pyaar ki Mithaas</div>
+                        <div class="choco-label" onclick="bite(this, 'Jaise dark chocolate thodi kadwi par gehri hoti hai, mera ishq bhi utna hi gehra hai.')">Gehra Ishq</div>
+                        <div class="choco-label" onclick="bite(this, 'Yeh mithaas toh sirf ek bahana hai, mujhe toh bas tumhara sath nibhana hai.')">Ek Vaada</div>
+                        <div class="choco-label" onclick="bite(this, 'Zindagi ki har kadwahat khatam ho jati hai, jab tum muskura kar milti ho.')">Sukoon-e-Dil</div>
+                    </div>
+                    <div id="chocoPoetry" class="letter-text" style="margin-top:25px; color:white; text-align:center; border-top: 1px solid var(--gold); padding-top:15px; font-style: italic;">
+                        "Chocolate ki mithaas toh pal bhar ki hai,<br>
+                        Par tumhara saath umar bhar ki khushi.<br>
+                        Tum meri zindagi ka woh hissa ho,<br>
+                        Jiske bina har mithaas adhuri si."
                     </div>`;
+                speak("Har chocolate mein mera ek ehsaas chupa hai.");
             }
             else if (dayNum === 10) {
-                content.innerHTML = `<h3>Happy Teddy Day! 🧸</h3><p>here ehehheehheheheheeh here's smol teddy for u. i love u so much jaaanuuuuuuuuuu. happpppyyyyyy teddddyyyyyy dayyyyyy 🧸</p>`;
+                content.innerHTML = `
+                    <h3 style="color: #ffb6c1;">A Piece of My Heart 🧸</h3>
+                    <div class="big-emoji" style="animation: pulse 2s infinite;">🧸</div>
+                    <div class="letter-text" style="color: #fff; background: rgba(255,182,193,0.1); padding: 15px; border-radius: 10px; border-left: 4px solid #ffb6c1; font-style: italic;">
+                        "Jab main paas na hoon, toh ise seene se laga lena...<br>
+                        Is nanhe se teddy mein, meri dhadkan dhund lena.<br><br>
+                        Yeh sirf ek khilona nahi, mera saaya hai,<br>
+                        Jo hamesha kahega ki tumne mujhe kitna sataya hai (aur maine kitna chaha hai)."
+                    </div>
+                    <p style="margin-top:20px; font-size: 0.9rem; color: var(--gold);">
+                        "Lavu, yeh teddy tumhari hifazat karega jab tak main tumhare paas nahi aa jata. Happy Teddy Day, my jaan."
+                    </p>`;
+                speak("Ise hamesha apne paas rakhna, bilkul meri tarah.");
+                container.style.animation = "vowGlow 3s infinite alternate";
             }
             else if (dayNum === 11) {
                 currentVow = 0;
@@ -313,7 +332,6 @@
             }
         }
 
-        // --- NEW PROMISE DAY LOGIC ---
         function nextVow() {
             const box = document.getElementById('vowBox');
             if (currentVow < vows.length) {
@@ -337,7 +355,6 @@
             currentVow++;
             setTimeout(nextVow, 600);
         }
-        // -----------------------------
 
         function openValentineScroll() {
             const paper = document.getElementById('valPaper');
