@@ -18,11 +18,12 @@
         .big-emoji { font-size: 80px; margin: 20px 0; display: block; cursor: pointer; transition: transform 0.3s; }
         .big-emoji:hover { transform: scale(1.1); }
         
-        /* Day 11: Vow Interaction */
-        .vow-card { background: rgba(255, 255, 255, 0.1); border: 1px solid var(--accent-blue); padding: 15px; margin: 10px 0; border-radius: 10px; cursor: pointer; transition: 0.3s; opacity: 0; transform: translateY(20px); }
-        .vow-card.show { opacity: 1; transform: translateY(0); }
-        .vow-card:hover { background: rgba(0, 86, 179, 0.3); border-color: var(--gold); }
-        .vow-sealed { border-color: #28a745 !important; background: rgba(40, 167, 69, 0.2) !important; text-decoration: line-through; opacity: 0.6 !important; }
+        /* Day 11: Enhanced Promise Interaction */
+        .vow-display { min-height: 150px; display: flex; align-items: center; justify-content: center; margin-top: 20px; }
+        .vow-card { background: rgba(255, 255, 255, 0.05); border: 2px solid var(--gold); padding: 20px; border-radius: 15px; cursor: pointer; transition: 0.5s; font-style: italic; line-height: 1.5; animation: vowGlow 2s infinite alternate; }
+        @keyframes vowGlow { from { box-shadow: 0 0 5px var(--gold); } to { box-shadow: 0 0 20px var(--gold); } }
+        .vow-card:hover { transform: scale(1.05); background: rgba(255, 215, 0, 0.1); }
+        .vow-fade-out { transform: scale(0) translateY(-100px); opacity: 0; filter: blur(10px); }
 
         /* Day 14: Final Scroll Styles */
         .scroll-wrapper { perspective: 1000px; margin-top: 20px; cursor: pointer; }
@@ -107,6 +108,16 @@
     <script>
         let petalInterval;
         let hugLoop;
+        let currentVow = 0;
+        const vows = [
+            "I promise to be the silence when the world is too loud, the steady hand when the shadows start to creep.",
+            "I will not just love you in the light of the sun, but in the hollows of the night where the secrets sleep.",
+            "I vow to carry your name like a prayer in my chest, to choose you when the path is easy, and more when it is not.",
+            "I will be the anchor that holds when the tide pulls away, the only part of my soul that can never be forgot.",
+            "I promise to see you—not as the world sees you, but as the truth you are, in every breath and every tear.",
+            "I give you my 'always' and every 'forever' I own, to prove that as long as I breathe, you have nothing to fear.",
+            "My heart is a map that leads only to your door, and I promise to walk that road, today and evermore."
+        ];
 
         function validateQuiz() {
             const h = document.getElementById('pwHeight').value.trim();
@@ -217,19 +228,12 @@
                 content.innerHTML = `<h3>Happy Teddy Day! 🧸</h3><p>here ehehheehheheheheeh here's smol teddy for u. i love u so much jaaanuuuuuuuuuu. happpppyyyyyy teddddyyyyyy dayyyyyy 🧸</p>`;
             }
             else if (dayNum === 11) {
+                currentVow = 0;
                 content.innerHTML = `
                     <h3>Promise Day 🤝</h3>
-                    <p>Click each promise to seal it in my heart...</p>
-                    <div id="vowBox">
-                        <div class="vow-card" onclick="sealVow(this, 'I promise to always be by your side, Tejas.')">"I promise to be your one and only forever."</div>
-                        <div class="vow-card" onclick="sealVow(this, 'I hear you, my love.')">"I promise no other girl will ever take your place."</div>
-                        <div class="vow-card" onclick="sealVow(this, 'I promise.')">"I promise every dream I have includes you."</div>
-                        <div class="vow-card" onclick="sealVow(this, 'Forever yours.')">"I promise my intentions for you are pure and eternal."</div>
-                    </div>`;
-                setTimeout(() => {
-                    const cards = document.querySelectorAll('.vow-card');
-                    cards.forEach((c, i) => setTimeout(() => c.classList.add('show'), i * 400));
-                }, 100);
+                    <p id="promiseHint">Tap the vow to seal it in my soul...</p>
+                    <div class="vow-display" id="vowBox"></div>`;
+                nextVow();
             }
             else if (dayNum === 12) {
                 content.innerHTML = `<h3>Hug Day 🫂</h3><p id="hugStatus">Long press Tejas to hold him tight...</p>`;
@@ -309,13 +313,31 @@
             }
         }
 
-        function sealVow(el, msg) {
-            if(!el.classList.contains('vow-sealed')) {
-                el.classList.add('vow-sealed');
-                speak(msg);
-                spawnHearts();
+        // --- NEW PROMISE DAY LOGIC ---
+        function nextVow() {
+            const box = document.getElementById('vowBox');
+            if (currentVow < vows.length) {
+                const card = document.createElement('div');
+                card.className = 'vow-card';
+                card.innerText = `"${vows[currentVow]}"`;
+                card.onclick = () => sealVowInteractive(card);
+                box.innerHTML = '';
+                box.appendChild(card);
+            } else {
+                document.getElementById('promiseHint').innerText = "All promises sealed in my heart forever.";
+                box.innerHTML = "<h4 style='color:var(--gold)'>I love you, Lavu. Always.</h4>";
+                speak("I will keep every single one of them.");
             }
         }
+
+        function sealVowInteractive(el) {
+            el.classList.add('vow-fade-out');
+            spawnHearts();
+            speak("I promise.");
+            currentVow++;
+            setTimeout(nextVow, 600);
+        }
+        // -----------------------------
 
         function openValentineScroll() {
             const paper = document.getElementById('valPaper');
