@@ -11,13 +11,12 @@
             --gold: #ffd700; 
             --crimson: #ff0033; 
             --deep-space: #020617;
-            --glass: rgba(255, 255, 255, 0.05);
         }
 
         body { 
             background-color: var(--deep-space); 
             color: #fff; 
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            font-family: 'Segoe UI', sans-serif; 
             display: flex; 
             justify-content: center; 
             align-items: center; 
@@ -27,132 +26,58 @@
             text-align: center; 
         }
 
-        /* Animated Background */
         #bg-canvas { position: fixed; top: 0; left: 0; z-index: -1; }
 
         .container { 
             width: 90%; 
             max-width: 450px; 
-            padding: 35px; 
-            border: 1px solid rgba(255,255,255,0.1); 
+            padding: 30px; 
             border-radius: 24px; 
-            background: rgba(10, 15, 30, 0.8); 
-            backdrop-filter: blur(20px);
+            background: rgba(10, 15, 30, 0.9); 
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.1);
             position: relative; 
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
             z-index: 10; 
-            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
 
         .hidden { display: none !important; }
 
         input { 
-            padding: 14px; 
-            border-radius: 12px; 
-            border: 1px solid rgba(0, 212, 255, 0.3); 
-            background: rgba(0,0,0,0.4); 
-            color: #fff; 
-            margin-top: 10px; 
-            width: 90%; 
-            text-align: center; 
-            font-size: 1rem;
-            outline: none;
-            transition: 0.3s;
+            padding: 12px; border-radius: 10px; border: 1px solid #333; 
+            background: #000; color: #fff; margin-top: 8px; width: 85%; 
+            text-align: center; font-size: 0.9rem;
         }
-        input:focus { border-color: var(--accent-blue); box-shadow: 0 0 15px rgba(0, 212, 255, 0.4); }
 
         button { 
-            padding: 16px 32px; 
-            background: linear-gradient(45deg, var(--main-blue), var(--accent-blue)); 
-            color: white; 
-            border: none; 
-            border-radius: 50px; 
-            cursor: pointer; 
-            margin: 15px 5px; 
-            font-weight: 800; 
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            transition: 0.4s; 
-            box-shadow: 0 10px 20px rgba(0, 123, 255, 0.3);
-        }
-        button:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(0, 123, 255, 0.5); }
-
-        #teddy { 
-            font-size: 80px; 
-            position: relative; 
-            cursor: grab; 
-            display: inline-block; 
-            z-index: 100;
-            filter: drop-shadow(0 0 15px rgba(255,255,255,0.2));
-            transition: transform 0.1s ease-out;
-        }
-        #teddy:active { cursor: grabbing; }
-        #teddy span { 
-            font-size: 12px; 
-            background: rgba(255,255,255,0.15); 
-            backdrop-filter: blur(5px);
-            color: white; 
-            padding: 4px 10px; 
-            border-radius: 20px; 
-            display: block; 
-            margin-bottom: 5px; 
-            font-weight: bold;
+            padding: 14px 25px; background: var(--main-blue); color: white; 
+            border: none; border-radius: 50px; cursor: pointer; margin: 10px 5px; 
+            font-weight: bold; transition: 0.3s; 
         }
 
-        /* Choco Evolution */
-        .choco-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 25px; }
-        .choco-card {
-            background: linear-gradient(135deg, #4b2c20 0%, #2b160d 100%);
-            padding: 20px 10px;
-            border-radius: 15px;
-            border: 1px solid var(--gold);
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            transition: 0.3s;
-        }
-        .choco-card:hover { transform: scale(1.05); box-shadow: 0 0 20px var(--gold); }
-        .choco-card::after {
-            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,215,0,0.1), transparent);
-            transform: rotate(45deg); transition: 0.5s;
-        }
-        .choco-card:hover::after { left: 100%; }
+        #teddy { font-size: 70px; cursor: grab; display: inline-block; position: relative; }
+        #teddy span { font-size: 10px; background: var(--main-blue); padding: 2px 8px; border-radius: 10px; display: block; }
 
-        /* Promise Day - Interactive Vows */
-        .vow-step { margin: 15px 0; padding: 10px; border-left: 2px solid var(--accent-blue); opacity: 0; transform: translateX(-20px); transition: 0.5s forwards; }
-        .vow-visible { opacity: 1; transform: translateX(0); }
+        /* Choco */
+        .choco-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+        .choco-card { background: #3d1d11; padding: 15px; border-radius: 12px; border: 1px solid var(--gold); cursor: pointer; color: var(--gold); font-weight: bold; }
 
-        /* The Scroll Effect */
-        .scroll-wrapper { perspective: 1000px; margin-top: 20px; }
-        .scroll-header { 
-            background: #d4af37; color: #2b160d; padding: 10px; 
-            border-radius: 5px 5px 0 0; cursor: pointer; font-weight: bold; 
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
+        /* Scroll */
+        .scroll-header { background: #d4af37; color: #2b160d; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 15px;}
         .scroll-content { 
             max-height: 0; overflow: hidden; background: #fdf5e6; color: #2b160d; 
-            transition: max-height 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-            text-align: left; padding: 0 20px; border-radius: 0 0 5px 5px;
-            font-family: 'Georgia', serif; line-height: 1.8;
+            transition: max-height 1.2s ease-in-out; text-align: left; border-radius: 0 0 8px 8px;
+            font-family: serif; line-height: 1.6;
         }
-        .scroll-open { max-height: 2000px; padding: 20px; border: 2px solid #d4af37; }
-
-        /* Animations */
-        @keyframes float { 0% { transform: translateY(0); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0); } }
-        .floating { animation: float 3s ease-in-out infinite; }
-        
-        .lip-mark { position: fixed; font-size: 50px; pointer-events: none; z-index: 1000; animation: kissAnim 1.5s forwards; }
-        @keyframes kissAnim { 0% { transform: scale(0); opacity: 0; } 50% { transform: scale(1.2); opacity: 1; } 100% { transform: translateY(-50px) scale(1); opacity: 0; } }
+        .scroll-open { max-height: 1500px; padding: 15px; border: 2px solid #d4af37; border-top: none; }
 
         #speech { 
-            background: white; color: black; padding: 10px 15px; border-radius: 15px; 
-            font-weight: bold; position: absolute; top: -60px; left: 50%; 
-            transform: translateX(-50%); width: 160px; font-size: 13px; 
-            display: none; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            z-index: 110;
+            background: white; color: black; padding: 8px; border-radius: 10px; 
+            position: absolute; top: -50px; left: 50%; transform: translateX(-50%);
+            width: 130px; font-size: 12px; display: none; font-weight: bold;
         }
-        #speech::after { content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); border-left: 10px solid transparent; border-right: 10px solid transparent; border-top: 10px solid white; }
+
+        .vow-step { margin: 10px 0; padding: 8px; border-left: 3px solid var(--accent-blue); background: rgba(255,255,255,0.05); }
     </style>
 </head>
 <body>
@@ -160,27 +85,19 @@
     <canvas id="bg-canvas"></canvas>
 
     <div id="screen1" class="container">
-        <h2 style="color: var(--accent-blue)">The Identity Check</h2>
-        <p>You can't enter without knowing <i>him</i>.</p>
-        <input type="text" id="pwHeight" placeholder="Height (6'0 style)">
-        <input type="text" id="pwHero" placeholder="Your Superhero?">
-        <input type="text" id="pwTime" placeholder="First text time (HH:MM)">
-        <input type="text" id="pwChit" placeholder="Color of first chit?">
-        <input type="text" id="pwLetter" placeholder="Flavour of first letter?">
+        <h2>Authentication</h2>
+        <input type="text" id="pwHeight" placeholder="Height (e.g. 6'0)">
+        <input type="text" id="pwHero" placeholder="Superhero?">
+        <input type="text" id="pwTime" placeholder="First Text (HH:MM)">
+        <input type="text" id="pwChit" placeholder="First Chit Color?">
+        <input type="text" id="pwLetter" placeholder="First Letter Flavour?">
         <input type="text" id="pwUltimatum" placeholder="Security Code">
-        <br><button onclick="validateQuiz()">AUTHENTICATE</button>
+        <br><button onclick="validateQuiz()">ENTER THE VOID</button>
     </div>
 
-    <div id="screenKey" class="container hidden">
-        <h2 style="color: var(--gold);">WELCOME BACK</h2>
-        <p>Use your permanent key to unlock today's gift.</p>
-        <input type="text" id="dailyInput" placeholder="Enter 2032">
-        <br><button onclick="checkDailyKey()">DECRYPT</button>
-    </div>
-
-    <div id="adminPanel" class="container hidden" style="border-color: var(--crimson);">
-        <h3 style="color:var(--crimson)">OVERRIDE ACTIVE</h3>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px;">
+    <div id="adminPanel" class="container hidden">
+        <h3 style="color:red">ADMIN BYPASS</h3>
+        <div style="display:grid; grid-template-columns: 1fr 1fr;">
             <button onclick="showDay(7)">Rose</button><button onclick="showDay(8)">Propose</button>
             <button onclick="showDay(9)">Choco</button><button onclick="showDay(10)">Teddy</button>
             <button onclick="showDay(11)">Promise</button><button onclick="showDay(12)">Hug</button>
@@ -188,8 +105,15 @@
         </div>
     </div>
 
+    <div id="screenKey" class="container hidden">
+        <h2 style="color: var(--gold);">ACCESS GRANTED</h2>
+        <p>Permanent Key: 2032</p>
+        <input type="text" id="dailyInput" placeholder="Enter Key">
+        <br><button onclick="checkDailyKey()">OPEN SURPRISE</button>
+    </div>
+
     <div id="mainDisplay" class="container hidden">
-        <div id="teddy" class="floating">
+        <div id="teddy">
             <div id="speech"></div>
             <span>TEJAS</span>🧸
         </div>
@@ -197,53 +121,34 @@
     </div>
 
     <script>
-        // Background Animation
+        // Particles
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
-        let particles = [];
-        
-        function initCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.onresize = initCanvas;
-        initCanvas();
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        let particles = Array.from({length: 50}, () => ({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            s: Math.random() * 2
+        }));
 
-        class Particle {
-            constructor() {
-                this.reset();
-            }
-            reset() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 0.5;
-                this.speedX = Math.random() * 0.5 - 0.25;
-                this.speedY = Math.random() * 0.5 - 0.25;
-                this.opacity = Math.random() * 0.5;
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
-            }
-            draw() {
-                ctx.fillStyle = `rgba(0, 212, 255, ${this.opacity})`;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
+        function draw() {
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            ctx.fillStyle = "rgba(255,255,255,0.3)";
+            particles.forEach(p => {
+                p.y -= 0.5; if(p.y < 0) p.y = canvas.height;
+                ctx.beginPath(); ctx.arc(p.x, p.y, p.s, 0, Math.PI*2); ctx.fill();
+            });
+            requestAnimationFrame(draw);
+        }
+        draw();
+
+        function speak(text) {
+            const s = document.getElementById('speech');
+            s.innerText = text; s.style.display = 'block';
+            setTimeout(() => s.style.display = 'none', 3000);
         }
 
-        for(let i=0; i<100; i++) particles.push(new Particle());
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => { p.update(); p.draw(); });
-            requestAnimationFrame(animate);
-        }
-        animate();
-
-        // Logic
         function validateQuiz() {
             const h = document.getElementById('pwHeight').value.trim();
             const hero = document.getElementById('pwHero').value.trim().toLowerCase();
@@ -258,11 +163,7 @@
             } else if (h === "8'15" && (hero === "spooderman" || hero === "spooderwoman") && time === "12:14" && chit === "pink" && letter === "coffee" && code === "2429") {
                 document.getElementById('screen1').classList.add('hidden');
                 document.getElementById('screenKey').classList.remove('hidden');
-            } else { 
-                document.querySelector('.container').style.animation = "shake 0.5s";
-                setTimeout(() => document.querySelector('.container').style.animation = "", 500);
-                alert("ACCESS DENIED."); 
-            }
+            } else { alert("DENIED."); }
         }
 
         function checkDailyKey() {
@@ -273,185 +174,64 @@
             } else { alert("WRONG KEY."); }
         }
 
-        function speak(text) {
-            const s = document.getElementById('speech');
-            s.innerText = text; s.style.display = 'block';
-            setTimeout(() => s.style.display = 'none', 4000);
-        }
-
         function showDay(dayNum) {
             const content = document.getElementById('content');
             const teddy = document.getElementById('teddy');
             content.innerHTML = "";
+            document.getElementById('mainDisplay').classList.remove('hidden');
+            document.getElementById('adminPanel').classList.add('hidden');
             document.body.onclick = null;
 
             if (dayNum === 7) {
-                // Keep Rose Day as requested but slight polish
-                content.innerHTML = `
-                    <h3 style="color: #ff4d4d;">Happy Rose Day 🌹</h3>
-                    <div style="font-size: 80px; cursor: pointer;" onclick="document.getElementById('roseMsg').classList.remove('hidden'); spawnHearts();">🌹</div>
-                    <div id="roseMsg" class="hidden" style="font-style: italic; margin-top: 15px; background: rgba(255,0,0,0.1); padding: 15px; border-radius: 10px;">
-                        "In a world of fleeting seasons, you are my perennial spring. A single rose is enough for my garden, and you, Lavanya, are my only rose."<br><br>
-                        "Gulab toh sirf ek bahaana hai, asli nazaara toh tumhara muskurana hai. Mere dil ke bageeche ki sabse khoobsurat kali tum hi ho, aur hamesha rahogi."
-                    </div>`;
-            } 
+                content.innerHTML = `<h3>Happy Rose Day 🌹</h3><div style="font-size:60px" onclick="document.getElementById('r').classList.remove('hidden')">🌹</div><div id="r" class="hidden">"In a world of fleeting seasons, you are my perennial spring..."</div>`;
+            }
             else if (dayNum === 8) {
-                // Propose Day stays exactly as requested
-                content.innerHTML = `<h3>Propose Day 💍</h3><p id="propText">Wait, Tejas has something to ask...</p>
-                <div id="btnContainer" class="hidden"><button id="noBtn" style="background:#666">NO</button><button id="yesBtn">YES</button></div>`;
-                setTimeout(() => {
-                    speak("i have a crush on u its very big like a dinosaur so will u be my valentine 🥺");
-                    document.getElementById('btnContainer').classList.remove('hidden');
-                }, 1000);
-                const handleChoice = (isYes) => {
-                    speak(isYes ? "Good choice but just incase 😉" : "trust me i saved u from a very bad choice 😉");
-                    document.getElementById('noBtn').style.transition = "1s";
-                    document.getElementById('noBtn').style.transform = "translateX(500px) rotate(90deg)";
-                    setTimeout(() => {
-                        document.getElementById('yesBtn').style.transform = "scale(1.5)";
-                        document.getElementById('yesBtn').onclick = () => {
-                            content.innerHTML = `<h3>Propose Day 💍</h3><p>prettiest woman on earth is now mine. Thank you so much for travelling this journey brave soldier. I love u so much jaanu be my bacha forever.</p>`;
-                        };
-                    }, 1000);
-                };
-                document.getElementById('noBtn').onclick = () => handleChoice(false);
-                document.getElementById('yesBtn').onclick = () => handleChoice(true);
+                content.innerHTML = `<h3>Propose Day 💍</h3><p id="pt">Tejas is asking...</p>
+                <div id="bc" class="hidden"><button id="nb">NO</button><button id="yb">YES</button></div>`;
+                setTimeout(() => { speak("will u be my valentine 🥺"); document.getElementById('bc').classList.remove('hidden'); }, 1000);
+                document.getElementById('nb').onclick = () => { speak("saved u from a bad choice 😉"); document.getElementById('nb').style.display = "none"; };
+                document.getElementById('yb').onclick = () => { content.innerHTML = "<h3>Propose Day 💍</h3><p>prettiest woman on earth is now mine. Thank you so much for travelling this journey brave soldier. I love u so much jaanu be my bacha forever.</p>"; };
             }
             else if (dayNum === 9) {
-                content.innerHTML = `<h3 style="color: var(--gold);">The Golden Chocolatier 🍫</h3>
-                <div class="choco-grid">
-                    <div class="choco-card" onclick="bite(this, 'Melts just like my heart when you smile.')">Oreo Silk</div>
-                    <div class="choco-card" onclick="bite(this, 'Crunchy, sweet, and my favorite—just like you.')">Twix</div>
-                    <div class="choco-card" onclick="bite(this, 'I promise to feed you these soon. No more screens.')">A Promise</div>
-                    <div class="choco-card" onclick="bite(this, 'You are the sweetness in my life, Lavu.')">Dark Choco</div>
+                content.innerHTML = `<h3>Choco Day 🍫</h3><div class="choco-grid">
+                    <div class="choco-card" onclick="speak('Melts like my heart...')">Oreo Silk</div>
+                    <div class="choco-card" onclick="speak('Crunchy like you...')">Twix</div>
+                    <div class="choco-card" onclick="speak('I promise to feed you soon.')">A Promise</div>
+                    <div class="choco-card" onclick="speak('Sweetness in my life.')">Dark Choco</div>
                 </div>`;
             }
             else if (dayNum === 10) {
-                content.innerHTML = `<h3>Teddy Day 🧸</h3>
-                <p>He's soft, he's cuddly, and he loves you as much as I do.</p>
-                <div style="font-size: 100px; filter: drop-shadow(0 0 20px #fff);">🧸</div>
-                <p style="font-size: 0.9rem;">here ehehheehheheheheeh here's smol teddy for u. i love u so much jaaanuuuuuuuuuu. happpppyyyyyy teddddyyyyyy dayyyyyy 🧸</p>`;
+                content.innerHTML = `<h3>Teddy Day 🧸</h3><div style="font-size:80px">🧸</div><p>here's smol teddy for u. i love u so much jaaanuuuuuuuuuu. happpppyyyyyy teddddyyyyyy dayyyyyy 🧸</p>`;
             }
             else if (dayNum === 11) {
-                content.innerHTML = `<h3>The Unbreakable Vows 🤝</h3>
-                <div id="vowBox" style="text-align: left;"></div>
-                <button id="vowBtn" onclick="nextVow()">Tap to witness my promise</button>`;
-                let vStep = 0;
-                const vows = [
-                    "Lavanya meri jaan. I promise you, you will be my one and only forever.",
-                    "I will never ever get with another girl even if u leave me i promise u of that.",
-                    "I promise u that i have the clearest intentions at heart for u.",
-                    "And i promise u every goal and dream i have of success you're a part of it."
-                ];
-                window.nextVow = () => {
-                    if(vStep < vows.length) {
-                        const v = document.createElement('div');
-                        v.className = 'vow-step';
-                        v.innerText = vows[vStep];
-                        document.getElementById('vowBox').appendChild(v);
-                        setTimeout(() => v.classList.add('vow-visible'), 10);
-                        vStep++;
-                        if(vStep === vows.length) document.getElementById('vowBtn').style.display = 'none';
-                    }
-                };
+                content.innerHTML = `<h3>Promise Day 🤝</h3><div id="vowBox"></div><button onclick="addVow()">Read my Vow</button>`;
+                let v = 0; const vs = ["I promise you'll be my one and only forever.", "I'll never be with another girl.", "Clear intentions for you.", "You're in every dream of success."];
+                window.addVow = () => { if(v<4){ const d=document.createElement('div'); d.className='vow-step'; d.innerText=vs[v++]; document.getElementById('vowBox').appendChild(d); } };
             }
             else if (dayNum === 12) {
-                content.innerHTML = `<h3>Hug Day 🫂</h3><p id="hStat">Long press Tejas to feel the warmth...</p>
-                <div id="hugC" style="position:fixed; inset:0; pointer-events:none; transition:0.5s;"></div>`;
-                const startHug = () => {
-                    teddy.style.transform = "scale(1.5)";
-                    document.getElementById('hStat').innerText = "Holding you close... ❤️";
-                    document.getElementById('hugC').style.background = "radial-gradient(circle, transparent, rgba(255,105,180,0.3))";
-                    window.hLoop = setInterval(spawnHearts, 300);
-                };
-                const endHug = () => {
-                    teddy.style.transform = "scale(1)";
-                    document.getElementById('hStat').innerText = "Long press Tejas...";
-                    document.getElementById('hugC').style.background = "transparent";
-                    clearInterval(window.hLoop);
-                };
-                teddy.onmousedown = startHug; teddy.onmouseup = endHug;
-                teddy.ontouchstart = startHug; teddy.ontouchend = endHug;
+                content.innerHTML = `<h3>Hug Day 🫂</h3><p id="hs">Long press Tejas...</p>`;
+                const h = () => { teddy.style.transform="scale(1.4)"; document.getElementById('hs').innerText="Holding you... ❤️"; };
+                const e = () => { teddy.style.transform="scale(1)"; document.getElementById('hs').innerText="Long press Tejas..."; };
+                teddy.onmousedown = h; teddy.onmouseup = e; teddy.ontouchstart = h; teddy.ontouchend = e;
             }
             else if (dayNum === 13) {
-                content.innerHTML = `<h3>Kiss Day 💋</h3><p>Tap anywhere to send a kiss to Tejas</p>`;
+                content.innerHTML = `<h3>Kiss Day 💋</h3><p>Tap anywhere!</p>`;
                 document.body.onclick = (e) => {
-                    const k = document.createElement('div');
-                    k.className = 'lip-mark';
-                    k.innerHTML = '💋';
-                    k.style.left = e.clientX + 'px';
-                    k.style.top = e.clientY + 'px';
-                    document.body.appendChild(k);
-                    spawnHearts();
-                    speak("MWAAAHHH! ❤️");
-                    setTimeout(() => k.remove(), 1500);
+                    const l = document.createElement('div'); l.style.position='fixed'; l.style.left=e.clientX+'px'; l.style.top=e.clientY+'px';
+                    l.innerText='💋'; l.style.fontSize='40px'; document.body.appendChild(l);
+                    setTimeout(() => l.remove(), 1000); speak("MWAAAHHH!");
                 };
             }
             else if (dayNum === 14) {
-                content.innerHTML = `
-                <div class="scroll-wrapper">
-                    <div class="scroll-header" onclick="this.nextElementSibling.classList.toggle('scroll-open')">
-                        📜 CLICK TO UNROLL MY HEART
-                    </div>
-                    <div class="scroll-content">
-                        Mi tujha ahe ani phakta tujhaca ahe. Sarvasvi tu. Kayamaca majha raha ani mi vacana deto ki tu kayamaca tujha rahasila.<br><br>
-
-                        Ata ya pudhe mi jya dolyancya premat paden te phakta aplya mulice astil. Ani mi mazyatli sagli shakti lavun he khatri karen ki dusrya kontyahi manusala ashi mulagi honar nahi jiche dole agadi tasyach asatil jyanvar mi prem kelay.<br><br>
-
-                        Lavu jaana i love u so much, like being with u is all i ever want. You're a poem and i want to be its poet my love. i want to spend ends of centuries glorifying your beauty. That face of yours puts the stories of cleopatra to shame or you can say makes it a true reality. You're the only person i want to be with in every life of mine. So many different timespans and how lucky am i to have been born as the same one as u.<br><br>
-
-                        Mai tumse bohut pyar karta hu jaanu, and i truely wish one day we get married but until then ill always love u to the depths of the universe.<br><br>
-
-                        <b>faithfully from your</b><br>
-                        <b>future husband</b><br>
-                        <small style="opacity:0.6;">(ps visit the website again next year ml)</small>
-                    </div>
+                content.innerHTML = `<h3>The Letter ❤️</h3><div class="scroll-header" onclick="document.getElementById('sc').classList.toggle('scroll-open')">📜 OPEN THE SCROLL</div>
+                <div id="sc" class="scroll-content">
+                    Mi tujha ahe ani phakta tujhaca ahe. Sarvasvi tu. Kayamaca majha raha ani mi vacana deto ki tu kayamaca tujha rahasila.<br><br>
+                    Ata ya pudhe mi jya dolyancya premat paden te phakta aplya mulice astil. Ani mi mazyatli sagli shakti lavun he khatri karen ki dusrya kontyahi manusala ashi mulagi honar nahi jiche dole agadi tasyach asatil jyanvar mi prem kelay.<br><br>
+                    Lavu jaana i love u so much, like being with u is all i ever want. You're a poem and i want to be its poet my love. i want to spend ends of centuries glorifying your beauty. That face of yours puts the stories of cleopatra to shame or you can say makes it a true reality. You're the only person i want to be with in every life of mine. So many different timespans and how lucky am i to have been born as the same one as u.<br><br>
+                    Mai tumse bohut pyar karta hu jaanu, and i truely wish one day we get married but until then ill always love u to the depths of the universe.<br><br>
+                    <b>faithfully from your future husband</b>
                 </div>`;
-                speak("I love you forever, Lavu.");
             }
-            else {
-                content.innerHTML = `<h3>Patience, Princess...</h3><div id="t" style="font-size: 2rem; color: var(--gold);"></div>`;
-                setInterval(() => {
-                    const diff = new Date(2026, 1, 7) - new Date();
-                    document.getElementById('t').innerText = `${Math.floor(diff/3600000)}h ${Math.floor((diff%3600000)/60000)}m ${Math.floor((diff%60000)/1000)}s`;
-                }, 1000);
-            }
-        }
-
-        function bite(el, msg) {
-            speak(msg);
-            el.style.transform = "scale(0.9)";
-            setTimeout(() => el.style.transform = "scale(1)", 100);
-            for(let i=0; i<5; i++) {
-                const p = document.createElement('div');
-                p.style.position = 'fixed';
-                p.style.left = event.clientX + 'px'; p.style.top = event.clientY + 'px';
-                p.innerText = '🍫';
-                p.style.transition = '0.5s';
-                document.body.appendChild(p);
-                setTimeout(() => {
-                    p.style.transform = `translate(${(Math.random()-0.5)*200}px, ${(Math.random()-0.5)*200}px) rotate(360deg)`;
-                    p.style.opacity = '0';
-                }, 10);
-                setTimeout(() => p.remove(), 600);
-            }
-        }
-
-        function spawnHearts() {
-            const h = document.createElement('div');
-            h.style.position = 'fixed';
-            h.style.left = Math.random() * 100 + 'vw';
-            h.style.top = '100vh';
-            h.innerText = '❤️';
-            h.style.fontSize = (Math.random() * 20 + 20) + 'px';
-            h.style.transition = '3s linear';
-            h.style.zIndex = '1000';
-            document.body.appendChild(h);
-            setTimeout(() => {
-                h.style.top = '-10vh';
-                h.style.transform = `translateX(${(Math.random()-0.5)*100}px)`;
-            }, 10);
-            setTimeout(() => h.remove(), 3000);
         }
     </script>
 </body>
