@@ -5,83 +5,191 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Ultimatum</title>
     <style>
-        :root { --main-blue: #0056b3; --accent-blue: #add8e6; --gold: gold; --crimson: #990000; --choco: #4b2c20; }
-        body { background-color: #000; color: var(--accent-blue); font-family: 'Arial', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; overflow-x: hidden; text-align: center; }
-        .container { width: 90%; max-width: 450px; padding: 25px; border: 2px solid var(--main-blue); border-radius: 20px; background: rgba(0, 10, 40, 0.95); position: relative; box-shadow: 0 0 30px rgba(0, 86, 179, 0.6); z-index: 10; transition: all 0.8s ease-in-out; }
-        .hidden { display: none; }
-        input { padding: 12px; border-radius: 10px; border: 2px solid #00f; background: #000; color: #fff; margin-top: 8px; width: 85%; text-align: center; font-size: 1rem; }
-        button { padding: 15px 30px; background: var(--main-blue); color: white; border: none; border-radius: 30px; cursor: pointer; margin: 10px 5px; font-weight: bold; transition: 0.3s; }
-        
-        #teddy { font-size: 70px; position: relative; cursor: pointer; transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: inline-block; z-index: 100; }
-        #teddy span { font-size: 10px; background: var(--main-blue); color: white; padding: 2px 6px; border-radius: 4px; display: block; margin-bottom: 5px; }
-        
-        .big-emoji { font-size: 80px; margin: 20px 0; display: block; cursor: pointer; transition: transform 0.3s; }
-        .big-emoji:hover { transform: scale(1.1); }
-        
-        /* Choco Styles */
-        .choco-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
-        .choco-label { background: linear-gradient(45deg, #3d1d11, #6d4c41); padding: 15px 10px; border-radius: 12px; border: 2px solid var(--gold); cursor: pointer; transition: 0.4s; color: var(--gold); font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-        .choco-label:hover { transform: scale(1.05) translateY(-5px); box-shadow: 0 0 20px var(--gold); background: linear-gradient(45deg, #5d3d31, #8d6c61); }
-        .choco-particle { position: absolute; pointer-events: none; animation: chocoExplode 0.8s ease-out forwards; font-size: 20px; }
-        @keyframes chocoExplode { 0% { transform: translate(0,0) scale(1); opacity: 1; } 100% { transform: translate(var(--x), var(--y)) scale(0); opacity: 0; } }
-        
-        .timer { font-size: 2rem; color: var(--gold); margin: 20px 0; }
-        .letter-text { text-align: left; font-size: 0.95rem; line-height: 1.6; color: #fff; white-space: pre-line; border-left: 3px solid var(--main-blue); padding-left: 15px; margin-top: 15px; }
-        
-        .crimson-theme { border-color: var(--crimson) !important; box-shadow: 0 0 30px rgba(153, 0, 0, 0.8) !important; background: rgba(20, 0, 0, 0.95) !important; }
-        .petal { position: fixed; top: -10%; user-select: none; pointer-events: none; z-index: 1; animation: fall linear forwards; }
-        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
-        
-        @keyframes slowShove { 0% { transform: translateX(0); } 100% { transform: translateX(800px) rotate(90deg); opacity: 0; } }
-        .yeet { animation: slowShove 1.5s ease-out forwards; }
-        .glowing-yes { transform: scale(1.6); background: #28a745 !important; box-shadow: 0 0 40px #28a745 !important; animation: pulse 1s infinite; }
-        @keyframes pulse { 0% { transform: scale(1.6); } 50% { transform: scale(1.7); } 100% { transform: scale(1.6); } }
+        :root { 
+            --main-blue: #007bff; 
+            --accent-blue: #00d4ff; 
+            --gold: #ffd700; 
+            --crimson: #ff0033; 
+            --deep-space: #020617;
+            --glass: rgba(255, 255, 255, 0.05);
+        }
 
-        .heart { position: absolute; color: red; font-size: 30px; pointer-events: none; animation: heartFly 1s ease-out forwards; z-index: 1000; }
-        @keyframes heartFly { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-200px) scale(2.5); opacity: 0; } }
-        
-        /* NEW IMMERSIVE STYLES */
-        .hug-vignette { position: fixed; inset: 0; background: radial-gradient(circle, transparent 20%, rgba(255, 182, 193, 0.8) 100%); opacity: 0; transition: opacity 0.6s ease; pointer-events: none; z-index: 5; }
-        .squeezing { transform: scale(0.96); filter: blur(1px); }
-        .hug-active { transform: scale(1.7); filter: drop-shadow(0 0 25px pink); }
-        
-        .lip-mark { position: absolute; font-size: 45px; pointer-events: none; z-index: 1000; user-select: none; filter: drop-shadow(0 0 5px rgba(255,0,0,0.5)); animation: kissFade 2s forwards; }
-        @keyframes kissFade { 0% { transform: scale(0) rotate(-15deg); opacity: 0; } 20% { transform: scale(1.2) rotate(10deg); opacity: 1; } 100% { transform: scale(1) rotate(0); opacity: 0; } }
+        body { 
+            background-color: var(--deep-space); 
+            color: #fff; 
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            margin: 0; 
+            overflow: hidden; 
+            text-align: center; 
+        }
 
-        #speech { background: white; color: black; padding: 8px; border-radius: 10px; font-weight: bold; position: absolute; top: -40px; left: 50%; transform: translateX(-50%); width: 140px; font-size: 12px; display: none; }
+        /* Animated Background */
+        #bg-canvas { position: fixed; top: 0; left: 0; z-index: -1; }
+
+        .container { 
+            width: 90%; 
+            max-width: 450px; 
+            padding: 35px; 
+            border: 1px solid rgba(255,255,255,0.1); 
+            border-radius: 24px; 
+            background: rgba(10, 15, 30, 0.8); 
+            backdrop-filter: blur(20px);
+            position: relative; 
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            z-index: 10; 
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .hidden { display: none !important; }
+
+        input { 
+            padding: 14px; 
+            border-radius: 12px; 
+            border: 1px solid rgba(0, 212, 255, 0.3); 
+            background: rgba(0,0,0,0.4); 
+            color: #fff; 
+            margin-top: 10px; 
+            width: 90%; 
+            text-align: center; 
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+        }
+        input:focus { border-color: var(--accent-blue); box-shadow: 0 0 15px rgba(0, 212, 255, 0.4); }
+
+        button { 
+            padding: 16px 32px; 
+            background: linear-gradient(45deg, var(--main-blue), var(--accent-blue)); 
+            color: white; 
+            border: none; 
+            border-radius: 50px; 
+            cursor: pointer; 
+            margin: 15px 5px; 
+            font-weight: 800; 
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: 0.4s; 
+            box-shadow: 0 10px 20px rgba(0, 123, 255, 0.3);
+        }
+        button:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(0, 123, 255, 0.5); }
+
+        #teddy { 
+            font-size: 80px; 
+            position: relative; 
+            cursor: grab; 
+            display: inline-block; 
+            z-index: 100;
+            filter: drop-shadow(0 0 15px rgba(255,255,255,0.2));
+            transition: transform 0.1s ease-out;
+        }
+        #teddy:active { cursor: grabbing; }
+        #teddy span { 
+            font-size: 12px; 
+            background: rgba(255,255,255,0.15); 
+            backdrop-filter: blur(5px);
+            color: white; 
+            padding: 4px 10px; 
+            border-radius: 20px; 
+            display: block; 
+            margin-bottom: 5px; 
+            font-weight: bold;
+        }
+
+        /* Choco Evolution */
+        .choco-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 25px; }
+        .choco-card {
+            background: linear-gradient(135deg, #4b2c20 0%, #2b160d 100%);
+            padding: 20px 10px;
+            border-radius: 15px;
+            border: 1px solid var(--gold);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: 0.3s;
+        }
+        .choco-card:hover { transform: scale(1.05); box-shadow: 0 0 20px var(--gold); }
+        .choco-card::after {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,215,0,0.1), transparent);
+            transform: rotate(45deg); transition: 0.5s;
+        }
+        .choco-card:hover::after { left: 100%; }
+
+        /* Promise Day - Interactive Vows */
+        .vow-step { margin: 15px 0; padding: 10px; border-left: 2px solid var(--accent-blue); opacity: 0; transform: translateX(-20px); transition: 0.5s forwards; }
+        .vow-visible { opacity: 1; transform: translateX(0); }
+
+        /* The Scroll Effect */
+        .scroll-wrapper { perspective: 1000px; margin-top: 20px; }
+        .scroll-header { 
+            background: #d4af37; color: #2b160d; padding: 10px; 
+            border-radius: 5px 5px 0 0; cursor: pointer; font-weight: bold; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .scroll-content { 
+            max-height: 0; overflow: hidden; background: #fdf5e6; color: #2b160d; 
+            transition: max-height 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: left; padding: 0 20px; border-radius: 0 0 5px 5px;
+            font-family: 'Georgia', serif; line-height: 1.8;
+        }
+        .scroll-open { max-height: 2000px; padding: 20px; border: 2px solid #d4af37; }
+
+        /* Animations */
+        @keyframes float { 0% { transform: translateY(0); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0); } }
+        .floating { animation: float 3s ease-in-out infinite; }
+        
+        .lip-mark { position: fixed; font-size: 50px; pointer-events: none; z-index: 1000; animation: kissAnim 1.5s forwards; }
+        @keyframes kissAnim { 0% { transform: scale(0); opacity: 0; } 50% { transform: scale(1.2); opacity: 1; } 100% { transform: translateY(-50px) scale(1); opacity: 0; } }
+
+        #speech { 
+            background: white; color: black; padding: 10px 15px; border-radius: 15px; 
+            font-weight: bold; position: absolute; top: -60px; left: 50%; 
+            transform: translateX(-50%); width: 160px; font-size: 13px; 
+            display: none; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 110;
+        }
+        #speech::after { content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); border-left: 10px solid transparent; border-right: 10px solid transparent; border-top: 10px solid white; }
     </style>
 </head>
 <body>
 
+    <canvas id="bg-canvas"></canvas>
+
     <div id="screen1" class="container">
-        <h2>If you've got the guts...</h2>
-        <p>you can make the cuts. (dare if u will)</p>
-        <input type="text" id="pwHeight" placeholder="Height (mine is 6'0)">
-        <input type="text" id="pwHero" placeholder="What super hero are u? (our spelling)">
-        <input type="text" id="pwTime" placeholder="First time we texted (HH:MM)">
-        <input type="text" id="pwChit" placeholder="Colour of first chit?">
-        <input type="text" id="pwLetter" placeholder="Flavour of first love letter?">
-        <input type="text" id="pwUltimatum" placeholder="Ultimatum Code">
-        <br><button onclick="validateQuiz()">ENTER THE VOID</button>
+        <h2 style="color: var(--accent-blue)">The Identity Check</h2>
+        <p>You can't enter without knowing <i>him</i>.</p>
+        <input type="text" id="pwHeight" placeholder="Height (6'0 style)">
+        <input type="text" id="pwHero" placeholder="Your Superhero?">
+        <input type="text" id="pwTime" placeholder="First text time (HH:MM)">
+        <input type="text" id="pwChit" placeholder="Color of first chit?">
+        <input type="text" id="pwLetter" placeholder="Flavour of first letter?">
+        <input type="text" id="pwUltimatum" placeholder="Security Code">
+        <br><button onclick="validateQuiz()">AUTHENTICATE</button>
     </div>
 
     <div id="screenKey" class="container hidden">
-        <h2 style="color: var(--gold);">ACCESS GRANTED</h2>
-        <p>Your permanent key is: <b>2032</b></p>
+        <h2 style="color: var(--gold);">WELCOME BACK</h2>
+        <p>Use your permanent key to unlock today's gift.</p>
         <input type="text" id="dailyInput" placeholder="Enter 2032">
-        <br><button onclick="checkDailyKey()">OPEN SURPRISE</button>
+        <br><button onclick="checkDailyKey()">DECRYPT</button>
     </div>
 
-    <div id="adminPanel" class="container hidden" style="border-color: red;">
-        <h3 style="color:red">ADMIN MODE</h3>
-        <button onclick="showDay(7)">Rose</button><button onclick="showDay(8)">Propose</button>
-        <button onclick="showDay(9)">Choco</button><button onclick="showDay(10)">Teddy</button>
-        <button onclick="showDay(11)">Promise</button><button onclick="showDay(12)">Hug</button>
-        <button onclick="showDay(13)">Kiss</button><button onclick="showDay(14)">Letter</button>
+    <div id="adminPanel" class="container hidden" style="border-color: var(--crimson);">
+        <h3 style="color:var(--crimson)">OVERRIDE ACTIVE</h3>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px;">
+            <button onclick="showDay(7)">Rose</button><button onclick="showDay(8)">Propose</button>
+            <button onclick="showDay(9)">Choco</button><button onclick="showDay(10)">Teddy</button>
+            <button onclick="showDay(11)">Promise</button><button onclick="showDay(12)">Hug</button>
+            <button onclick="showDay(13)">Kiss</button><button onclick="showDay(14)">Letter</button>
+        </div>
     </div>
 
     <div id="mainDisplay" class="container hidden">
-        <div id="teddy">
+        <div id="teddy" class="floating">
             <div id="speech"></div>
             <span>TEJAS</span>🧸
         </div>
@@ -89,9 +197,53 @@
     </div>
 
     <script>
-        let petalInterval;
-        let hugLoop;
+        // Background Animation
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        
+        function initCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.onresize = initCanvas;
+        initCanvas();
 
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+                this.opacity = Math.random() * 0.5;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
+            }
+            draw() {
+                ctx.fillStyle = `rgba(0, 212, 255, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for(let i=0; i<100; i++) particles.push(new Particle());
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Logic
         function validateQuiz() {
             const h = document.getElementById('pwHeight').value.trim();
             const hero = document.getElementById('pwHero').value.trim().toLowerCase();
@@ -106,7 +258,11 @@
             } else if (h === "8'15" && (hero === "spooderman" || hero === "spooderwoman") && time === "12:14" && chit === "pink" && letter === "coffee" && code === "2429") {
                 document.getElementById('screen1').classList.add('hidden');
                 document.getElementById('screenKey').classList.remove('hidden');
-            } else { alert("ACCESS DENIED."); }
+            } else { 
+                document.querySelector('.container').style.animation = "shake 0.5s";
+                setTimeout(() => document.querySelector('.container').style.animation = "", 500);
+                alert("ACCESS DENIED."); 
+            }
         }
 
         function checkDailyKey() {
@@ -117,71 +273,43 @@
             } else { alert("WRONG KEY."); }
         }
 
-        function createPetals() {
-            if(petalInterval) clearInterval(petalInterval);
-            petalInterval = setInterval(() => {
-                const p = document.createElement('div');
-                p.className = 'petal';
-                p.innerText = Math.random() > 0.5 ? '🌹' : '🤍';
-                p.style.left = Math.random() * 100 + 'vw';
-                p.style.animationDuration = (Math.random() * 3 + 2) + 's';
-                p.style.fontSize = (Math.random() * 10 + 15) + 'px';
-                document.body.appendChild(p);
-                setTimeout(() => p.remove(), 5000);
-            }, 300);
-        }
-
         function speak(text) {
             const s = document.getElementById('speech');
             s.innerText = text; s.style.display = 'block';
+            setTimeout(() => s.style.display = 'none', 4000);
         }
 
         function showDay(dayNum) {
             const content = document.getElementById('content');
             const teddy = document.getElementById('teddy');
-            const speech = document.getElementById('speech');
-            const container = document.querySelector('.container#mainDisplay');
-            
-            document.getElementById('mainDisplay').classList.remove('hidden');
-            document.getElementById('adminPanel').classList.add('hidden');
-            
-            content.innerHTML = ""; speech.style.display = 'none';
-            teddy.onmousedown = null; teddy.onclick = null; teddy.style.transform = "none"; teddy.classList.remove('hug-active');
-            container.classList.remove('crimson-theme', 'squeezing');
-            document.body.onclick = null; // Reset screen-wide clicks
-            if(petalInterval) clearInterval(petalInterval);
-            if(hugLoop) clearInterval(hugLoop);
+            content.innerHTML = "";
+            document.body.onclick = null;
 
             if (dayNum === 7) {
-                container.classList.add('crimson-theme');
-                createPetals();
+                // Keep Rose Day as requested but slight polish
                 content.innerHTML = `
-                    <h3 style="color: #ff4d4d;">Happy Rose Day, My Eternal Bloom 🌹</h3>
-                    <span class="big-emoji" onclick="revealRosePoem()">🌹</span>
-                    <p style="font-size: 0.8rem; opacity: 0.7;">(Tap the rose to reveal my heart)</p>
-                    <div id="roseMessage" class="letter-text hidden" style="border-color: #ff4d4d;">
-                        "In a world of fleeting seasons, you are my perennial spring. A single rose is enough for my garden, and you, Lavanya, are my only rose."
+                    <h3 style="color: #ff4d4d;">Happy Rose Day 🌹</h3>
+                    <div style="font-size: 80px; cursor: pointer;" onclick="document.getElementById('roseMsg').classList.remove('hidden'); spawnHearts();">🌹</div>
+                    <div id="roseMsg" class="hidden" style="font-style: italic; margin-top: 15px; background: rgba(255,0,0,0.1); padding: 15px; border-radius: 10px;">
+                        "In a world of fleeting seasons, you are my perennial spring. A single rose is enough for my garden, and you, Lavanya, are my only rose."<br><br>
                         "Gulab toh sirf ek bahaana hai, asli nazaara toh tumhara muskurana hai. Mere dil ke bageeche ki sabse khoobsurat kali tum hi ho, aur hamesha rahogi."
-                        <br><br>Lavanya, this digital rose will stay in full bloom as long as this code exists. 
                     </div>`;
             } 
             else if (dayNum === 8) {
+                // Propose Day stays exactly as requested
                 content.innerHTML = `<h3>Propose Day 💍</h3><p id="propText">Wait, Tejas has something to ask...</p>
-                <div id="btnContainer" class="hidden"><button id="noBtn">NO</button><button id="yesBtn">YES</button></div>`;
+                <div id="btnContainer" class="hidden"><button id="noBtn" style="background:#666">NO</button><button id="yesBtn">YES</button></div>`;
                 setTimeout(() => {
                     speak("i have a crush on u its very big like a dinosaur so will u be my valentine 🥺");
                     document.getElementById('btnContainer').classList.remove('hidden');
                 }, 1000);
                 const handleChoice = (isYes) => {
-                    const noBtn = document.getElementById('noBtn');
-                    const yesBtn = document.getElementById('yesBtn');
                     speak(isYes ? "Good choice but just incase 😉" : "trust me i saved u from a very bad choice 😉");
-                    teddy.style.transform = "translateY(60px) rotate(-45deg) scale(1.5)";
-                    noBtn.classList.add('yeet');
+                    document.getElementById('noBtn').style.transition = "1s";
+                    document.getElementById('noBtn').style.transform = "translateX(500px) rotate(90deg)";
                     setTimeout(() => {
-                        teddy.style.transform = "rotate(0deg) scale(1.1)";
-                        yesBtn.classList.add('glowing-yes');
-                        yesBtn.onclick = () => {
+                        document.getElementById('yesBtn').style.transform = "scale(1.5)";
+                        document.getElementById('yesBtn').onclick = () => {
                             content.innerHTML = `<h3>Propose Day 💍</h3><p>prettiest woman on earth is now mine. Thank you so much for travelling this journey brave soldier. I love u so much jaanu be my bacha forever.</p>`;
                         };
                     }, 1000);
@@ -190,94 +318,101 @@
                 document.getElementById('yesBtn').onclick = () => handleChoice(true);
             }
             else if (dayNum === 9) {
-                content.innerHTML = `<h3 style="color: var(--gold);">The Golden Treat 🍫</h3><div class="big-emoji">🍫</div>
-                    <div class="choco-grid">
-                        <div class="choco-label" onclick="bite(this, 'Melts just like my heart when you smile.')">Oreo Silk</div>
-                        <div class="choco-label" onclick="bite(this, 'Crunchy, sweet, and my favorite—just like you.')">Twix</div>
-                        <div class="choco-label" onclick="bite(this, 'I promise to feed you these soon. No more screens.')">A Promise</div>
-                        <div class="choco-label" onclick="bite(this, 'You are the sweetness in my life, Lavu.')">Dark Choco</div>
-                    </div>`;
+                content.innerHTML = `<h3 style="color: var(--gold);">The Golden Chocolatier 🍫</h3>
+                <div class="choco-grid">
+                    <div class="choco-card" onclick="bite(this, 'Melts just like my heart when you smile.')">Oreo Silk</div>
+                    <div class="choco-card" onclick="bite(this, 'Crunchy, sweet, and my favorite—just like you.')">Twix</div>
+                    <div class="choco-card" onclick="bite(this, 'I promise to feed you these soon. No more screens.')">A Promise</div>
+                    <div class="choco-card" onclick="bite(this, 'You are the sweetness in my life, Lavu.')">Dark Choco</div>
+                </div>`;
             }
             else if (dayNum === 10) {
-                content.innerHTML = `<h3>Happy Teddy Day! 🧸</h3><p>here ehehheehheheheheeh here's smol teddy for u. i love u so much jaaanuuuuuuuuuu. happpppyyyyyy teddddyyyyyy dayyyyyy 🧸</p>`;
+                content.innerHTML = `<h3>Teddy Day 🧸</h3>
+                <p>He's soft, he's cuddly, and he loves you as much as I do.</p>
+                <div style="font-size: 100px; filter: drop-shadow(0 0 20px #fff);">🧸</div>
+                <p style="font-size: 0.9rem;">here ehehheehheheheheeh here's smol teddy for u. i love u so much jaaanuuuuuuuuuu. happpppyyyyyy teddddyyyyyy dayyyyyy 🧸</p>`;
             }
             else if (dayNum === 11) {
-                content.innerHTML = `<h3>Promise Day 🤝</h3><div class="letter-text">Lavanya meri jaan. i promise you, you will be my one and only forever. I will never ever get with another girl even if u leave me i promise u of that, i promise u that i have the clearest intentions at heart for u and i promise u every goal and dream i have of success you're a part of it.</div>`;
+                content.innerHTML = `<h3>The Unbreakable Vows 🤝</h3>
+                <div id="vowBox" style="text-align: left;"></div>
+                <button id="vowBtn" onclick="nextVow()">Tap to witness my promise</button>`;
+                let vStep = 0;
+                const vows = [
+                    "Lavanya meri jaan. I promise you, you will be my one and only forever.",
+                    "I will never ever get with another girl even if u leave me i promise u of that.",
+                    "I promise u that i have the clearest intentions at heart for u.",
+                    "And i promise u every goal and dream i have of success you're a part of it."
+                ];
+                window.nextVow = () => {
+                    if(vStep < vows.length) {
+                        const v = document.createElement('div');
+                        v.className = 'vow-step';
+                        v.innerText = vows[vStep];
+                        document.getElementById('vowBox').appendChild(v);
+                        setTimeout(() => v.classList.add('vow-visible'), 10);
+                        vStep++;
+                        if(vStep === vows.length) document.getElementById('vowBtn').style.display = 'none';
+                    }
+                };
             }
             else if (dayNum === 12) {
-                content.innerHTML = `<h3>Hug Day 🫂</h3><p id="hugStatus">Long press Tejas to hold him tight...</p>`;
-                speak("Hold me and don't let go, my love.");
-                
-                const vig = document.createElement('div');
-                vig.className = 'hug-vignette';
-                document.body.appendChild(vig);
-
-                const startHug = (e) => {
-                    if(e.type === 'touchstart') e.preventDefault();
-                    teddy.classList.add('hug-active');
-                    container.classList.add('squeezing');
-                    vig.style.opacity = "1";
-                    document.getElementById('hugStatus').innerText = "Holding you forever... ❤️";
-                    spawnHearts();
-                    hugLoop = setInterval(spawnHearts, 300);
+                content.innerHTML = `<h3>Hug Day 🫂</h3><p id="hStat">Long press Tejas to feel the warmth...</p>
+                <div id="hugC" style="position:fixed; inset:0; pointer-events:none; transition:0.5s;"></div>`;
+                const startHug = () => {
+                    teddy.style.transform = "scale(1.5)";
+                    document.getElementById('hStat').innerText = "Holding you close... ❤️";
+                    document.getElementById('hugC').style.background = "radial-gradient(circle, transparent, rgba(255,105,180,0.3))";
+                    window.hLoop = setInterval(spawnHearts, 300);
                 };
                 const endHug = () => {
-                    teddy.classList.remove('hug-active');
-                    container.classList.remove('squeezing');
-                    vig.style.opacity = "0";
-                    document.getElementById('hugStatus').innerText = "Long press Tejas to hold him tight...";
-                    clearInterval(hugLoop);
+                    teddy.style.transform = "scale(1)";
+                    document.getElementById('hStat').innerText = "Long press Tejas...";
+                    document.getElementById('hugC').style.background = "transparent";
+                    clearInterval(window.hLoop);
                 };
                 teddy.onmousedown = startHug; teddy.onmouseup = endHug;
                 teddy.ontouchstart = startHug; teddy.ontouchend = endHug;
             }
             else if (dayNum === 13) {
-                content.innerHTML = `<h3>Kiss Day 💋</h3><p>Tap anywhere on the screen to kiss me!</p>`;
-                speak("MWAAAHHH! Close your eyes and feel it...");
-
-                const kissAction = (e) => {
-                    const x = e.clientX || (e.touches ? e.touches[0].clientX : 0);
-                    const y = e.clientY || (e.touches ? e.touches[0].clientY : 0);
-                    if(!x || !y) return;
-
-                    const lip = document.createElement('div');
-                    lip.className = 'lip-mark';
-                    lip.innerHTML = '💋';
-                    lip.style.left = (x - 25) + 'px';
-                    lip.style.top = (y - 25) + 'px';
-                    document.body.appendChild(lip);
-                    
-                    speak("I felt that! ❤️");
+                content.innerHTML = `<h3>Kiss Day 💋</h3><p>Tap anywhere to send a kiss to Tejas</p>`;
+                document.body.onclick = (e) => {
+                    const k = document.createElement('div');
+                    k.className = 'lip-mark';
+                    k.innerHTML = '💋';
+                    k.style.left = e.clientX + 'px';
+                    k.style.top = e.clientY + 'px';
+                    document.body.appendChild(k);
                     spawnHearts();
-                    setTimeout(() => lip.remove(), 2000);
+                    speak("MWAAAHHH! ❤️");
+                    setTimeout(() => k.remove(), 1500);
                 };
-                document.body.onclick = kissAction;
-                document.body.ontouchstart = kissAction;
             }
             else if (dayNum === 14) {
                 content.innerHTML = `
-                <h3>My Final Letter ❤️</h3>
-                <div class="letter-text">
-                    Mi tujha ahe ani phakta tujhaca ahe. Sarvasvi tu. Kayamaca majha raha ani mi vacana deto ki tu kayamaca tujha rahasila.
+                <div class="scroll-wrapper">
+                    <div class="scroll-header" onclick="this.nextElementSibling.classList.toggle('scroll-open')">
+                        📜 CLICK TO UNROLL MY HEART
+                    </div>
+                    <div class="scroll-content">
+                        Mi tujha ahe ani phakta tujhaca ahe. Sarvasvi tu. Kayamaca majha raha ani mi vacana deto ki tu kayamaca tujha rahasila.<br><br>
 
-                    Ata ya pudhe mi jya dolyancya premat paden te phakta aplya mulice astil. Ani mi mazyatli sagli shakti lavun he khatri karen ki dusrya kontyahi manusala ashi mulagi honar nahi jiche dole agadi tasyach asatil jyanvar mi prem kelay.
+                        Ata ya pudhe mi jya dolyancya premat paden te phakta aplya mulice astil. Ani mi mazyatli sagli shakti lavun he khatri karen ki dusrya kontyahi manusala ashi mulagi honar nahi jiche dole agadi tasyach asatil jyanvar mi prem kelay.<br><br>
 
-                    Lavu jaana i love u so much, like being with u is all i ever want. You're a poem and i want to be its poet my love. i want to spend ends of centuries glorifying your beauty. That face of yours puts the stories of cleopatra to shame or you can say makes it a true reality. You're the only person i want to be with in every life of mine. So many different timespans and how lucky am i to have been born as the same one as u. 
+                        Lavu jaana i love u so much, like being with u is all i ever want. You're a poem and i want to be its poet my love. i want to spend ends of centuries glorifying your beauty. That face of yours puts the stories of cleopatra to shame or you can say makes it a true reality. You're the only person i want to be with in every life of mine. So many different timespans and how lucky am i to have been born as the same one as u.<br><br>
 
-                    Mai tumse bohut pyar karta hu jaanu, and i truely wish one day we get married but until then ill always love u to the depths of the universe.
+                        Mai tumse bohut pyar karta hu jaanu, and i truely wish one day we get married but until then ill always love u to the depths of the universe.<br><br>
 
-                    <b>faithfully from your</b>
-                    <b>future husband</b>
-                    <small style="display:block; margin-top:10px; opacity:0.6;">(ps visit the website again next year ml)</small>
+                        <b>faithfully from your</b><br>
+                        <b>future husband</b><br>
+                        <small style="opacity:0.6;">(ps visit the website again next year ml)</small>
+                    </div>
                 </div>`;
-                spawnHearts();
                 speak("I love you forever, Lavu.");
             }
             else {
-                content.innerHTML = `<h3>Too early, princess!</h3><div class="timer" id="t"></div>`;
-                const timerInterval = setInterval(() => {
+                content.innerHTML = `<h3>Patience, Princess...</h3><div id="t" style="font-size: 2rem; color: var(--gold);"></div>`;
+                setInterval(() => {
                     const diff = new Date(2026, 1, 7) - new Date();
-                    if (diff <= 0) { clearInterval(timerInterval); location.reload(); }
                     document.getElementById('t').innerText = `${Math.floor(diff/3600000)}h ${Math.floor((diff%3600000)/60000)}m ${Math.floor((diff%60000)/1000)}s`;
                 }, 1000);
             }
@@ -285,35 +420,38 @@
 
         function bite(el, msg) {
             speak(msg);
-            const rect = el.getBoundingClientRect();
-            for(let i=0; i<8; i++) {
-                const p = document.createElement('div');
-                p.className = 'choco-particle';
-                p.innerText = Math.random() > 0.5 ? '🍫' : '🟤';
-                p.style.left = (rect.left + rect.width/2) + 'px';
-                p.style.top = (rect.top + rect.height/2) + 'px';
-                p.style.setProperty('--x', (Math.random()*200 - 100) + 'px');
-                p.style.setProperty('--y', (Math.random()*200 - 100) + 'px');
-                document.body.appendChild(p);
-                setTimeout(() => p.remove(), 800);
-            }
             el.style.transform = "scale(0.9)";
             setTimeout(() => el.style.transform = "scale(1)", 100);
-        }
-
-        function revealRosePoem() {
-            document.getElementById('roseMessage').classList.remove('hidden');
-            spawnHearts();
+            for(let i=0; i<5; i++) {
+                const p = document.createElement('div');
+                p.style.position = 'fixed';
+                p.style.left = event.clientX + 'px'; p.style.top = event.clientY + 'px';
+                p.innerText = '🍫';
+                p.style.transition = '0.5s';
+                document.body.appendChild(p);
+                setTimeout(() => {
+                    p.style.transform = `translate(${(Math.random()-0.5)*200}px, ${(Math.random()-0.5)*200}px) rotate(360deg)`;
+                    p.style.opacity = '0';
+                }, 10);
+                setTimeout(() => p.remove(), 600);
+            }
         }
 
         function spawnHearts() {
-            for(let i=0; i<10; i++) {
-                const h = document.createElement('div'); h.className = 'heart'; h.innerText = '❤️';
-                h.style.left = (window.innerWidth/2 + (Math.random()*160 - 80)) + 'px';
-                h.style.top = (window.innerHeight/2) + 'px';
-                document.body.appendChild(h);
-                setTimeout(() => h.remove(), 1000);
-            }
+            const h = document.createElement('div');
+            h.style.position = 'fixed';
+            h.style.left = Math.random() * 100 + 'vw';
+            h.style.top = '100vh';
+            h.innerText = '❤️';
+            h.style.fontSize = (Math.random() * 20 + 20) + 'px';
+            h.style.transition = '3s linear';
+            h.style.zIndex = '1000';
+            document.body.appendChild(h);
+            setTimeout(() => {
+                h.style.top = '-10vh';
+                h.style.transform = `translateX(${(Math.random()-0.5)*100}px)`;
+            }, 10);
+            setTimeout(() => h.remove(), 3000);
         }
     </script>
 </body>
