@@ -255,7 +255,23 @@
                 document.body.ontouchstart = kissAction;
             }
             else if (dayNum === 14) {
-                content.innerHTML = `<h3>My Final Letter ❤️</h3><div class="letter-text">Mi tujha ahe ani phakta tujhaca ahe. Sarvasvi tu. Kayamaca majha raha... (Letter continues)</div>`;
+                content.innerHTML = `
+                <h3>My Final Letter ❤️</h3>
+                <div class="letter-text">
+                    Mi tujha ahe ani phakta tujhaca ahe. Sarvasvi tu. Kayamaca majha raha ani mi vacana deto ki tu kayamaca tujha rahasila.
+
+                    Ata ya pudhe mi jya dolyancya premat paden te phakta aplya mulice astil. Ani mi mazyatli sagli shakti lavun he khatri karen ki dusrya kontyahi manusala ashi mulagi honar nahi jiche dole agadi tasyach asatil jyanvar mi prem kelay.
+
+                    Lavu jaana i love u so much, like being with u is all i ever want. You're a poem and i want to be its poet my love. i want to spend ends of centuries glorifying your beauty. That face of yours puts the stories of cleopatra to shame or you can say makes it a true reality. You're the only person i want to be with in every life of mine. So many different timespans and how lucky am i to have been born as the same one as u. 
+
+                    Mai tumse bohut pyar karta hu jaanu, and i truely wish one day we get married but until then ill always love u to the depths of the universe.
+
+                    <b>faithfully from your</b>
+                    <b>future husband</b>
+                    <small style="display:block; margin-top:10px; opacity:0.6;">(ps visit the website again next year ml)</small>
+                </div>`;
+                spawnHearts();
+                speak("I love you forever, Lavu.");
             }
             else {
                 content.innerHTML = `<h3>Too early, princess!</h3><div class="timer" id="t"></div>`;
